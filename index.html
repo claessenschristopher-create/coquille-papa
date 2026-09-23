@@ -3,10 +3,398 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Coquille — Papa</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f5f7;
+            color: #17202a;
+        }
+
+        header {
+            background: #173b57;
+            color: white;
+            padding: 22px 18px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            margin: 7px 0 0;
+            opacity: 0.85;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccd3d8;
+            border-radius: 10px;
+            font-size: 17px;
+            margin-bottom: 15px;
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-button {
+            background: #1d7a46;
+            color: white;
+        }
+
+        .reset-button {
+            background: #c0392b;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .total-card {
+            background: #173b57;
+            color: white;
+            text-align: center;
+        }
+
+        .total-label {
+            font-size: 17px;
+            opacity: 0.85;
+        }
+
+        .total {
+            font-size: 38px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .weight-total {
+            margin-top: 8px;
+            font-size: 17px;
+        }
+
+        .entry {
+            border: 1px solid #dfe4e7;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            background: #fafbfc;
+        }
+
+        .entry-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .entry-title {
+            font-weight: bold;
+        }
+
+        .entry-details {
+            margin-top: 7px;
+            color: #52616b;
+        }
+
+        .delete-button {
+            width: auto;
+            padding: 7px 11px;
+            background: #e74c3c;
+            color: white;
+            font-size: 14px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #7b8790;
+            padding: 15px 0;
+        }
+
+        .rates {
+            font-size: 14px;
+            color: #687780;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Coquille — Papa</h1>
-    <p>Application en cours de création.</p>
+
+<header>
+    <h1>🦪 Coquille — Papa</h1>
+    <p>Suivi de la production</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>➕ Ajouter une production</h2>
+
+        <label for="type">Type de coquille</label>
+
+        <select id="type">
+            <option value="noix">Noix seule — 1,66 €/kg</option>
+            <option value="corail">Noix + corail — 1,56 €/kg</option>
+        </select>
+
+        <label for="weight">Poids (kg)</label>
+
+        <input
+            id="weight"
+            type="number"
+            inputmode="decimal"
+            step="0.01"
+            min="0"
+            placeholder="Exemple : 25,50"
+        >
+
+        <button class="add-button" onclick="addEntry()">
+            Ajouter
+        </button>
+
+        <div class="rates">
+            Tarifs actuels :<br>
+            • Noix seule : <strong>1,66 €/kg</strong><br>
+            • Noix + corail : <strong>1,56 €/kg</strong>
+        </div>
+    </div>
+
+    <div class="card total-card">
+        <div class="total-label">💰 Total de la journée</div>
+        <div class="total" id="total">0,00 €</div>
+        <div class="weight-total" id="weightTotal">
+            0,00 kg
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📋 Production</h2>
+
+        <div id="entries">
+            <div class="empty">
+                Aucune production enregistrée.
+            </div>
+        </div>
+
+        <button class="reset-button" onclick="resetDay()">
+            🗑️ Nouvelle journée
+        </button>
+    </div>
+
+</div>
+
+<script>
+
+    /*
+        TARIFS
+        Il suffira de modifier ces deux nombres
+        lorsque les tarifs changeront.
+    */
+
+    const TARIF_NOIX = 1.66;
+    const TARIF_CORAIL = 1.56;
+
+    let entries = JSON.parse(
+        localStorage.getItem("coquillePapaEntries") || "[]"
+    );
+
+    function saveEntries() {
+        localStorage.setItem(
+            "coquillePapaEntries",
+            JSON.stringify(entries)
+        );
+    }
+
+    function addEntry() {
+
+        const type = document.getElementById("type").value;
+
+        const weightInput =
+            document.getElementById("weight").value;
+
+        const weight = parseFloat(
+            weightInput.replace(",", ".")
+        );
+
+        if (!weight || weight <= 0) {
+            alert("Entre un poids valide.");
+            return;
+        }
+
+        let rate;
+        let label;
+
+        if (type === "noix") {
+            rate = TARIF_NOIX;
+            label = "Noix seule";
+        } else {
+            rate = TARIF_CORAIL;
+            label = "Noix + corail";
+        }
+
+        const amount = weight * rate;
+
+        entries.push({
+            id: Date.now(),
+            type: type,
+            label: label,
+            weight: weight,
+            rate: rate,
+            amount: amount
+        });
+
+        saveEntries();
+
+        document.getElementById("weight").value = "";
+
+        render();
+    }
+
+    function deleteEntry(id) {
+
+        entries = entries.filter(
+            entry => entry.id !== id
+        );
+
+        saveEntries();
+
+        render();
+    }
+
+    function resetDay() {
+
+        if (
+            !confirm(
+                "Supprimer toute la production de la journée ?"
+            )
+        ) {
+            return;
+        }
+
+        entries = [];
+
+        saveEntries();
+
+        render();
+    }
+
+    function render() {
+
+        const container =
+            document.getElementById("entries");
+
+        if (entries.length === 0) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    Aucune production enregistrée.
+                </div>
+            `;
+
+        } else {
+
+            container.innerHTML = "";
+
+            entries.forEach(entry => {
+
+                const div =
+                    document.createElement("div");
+
+                div.className = "entry";
+
+                div.innerHTML = `
+                    <div class="entry-top">
+
+                        <div>
+                            <div class="entry-title">
+                                ${entry.label}
+                            </div>
+
+                            <div class="entry-details">
+                                ${entry.weight.toFixed(2).replace(".", ",")} kg
+                                ×
+                                ${entry.rate.toFixed(2).replace(".", ",")} €/kg
+                                =
+                                <strong>
+                                    ${entry.amount.toFixed(2).replace(".", ",")} €
+                                </strong>
+                            </div>
+                        </div>
+
+                        <button
+                            class="delete-button"
+                            onclick="deleteEntry(${entry.id})"
+                        >
+                            Supprimer
+                        </button>
+
+                    </div>
+                `;
+
+                container.appendChild(div);
+            });
+        }
+
+        let total = 0;
+        let totalWeight = 0;
+
+        entries.forEach(entry => {
+            total += entry.amount;
+            totalWeight += entry.weight;
+        });
+
+        document.getElementById("total").textContent =
+            total.toFixed(2).replace(".", ",") + " €";
+
+        document.getElementById("weightTotal").textContent =
+            totalWeight.toFixed(2).replace(".", ",") + " kg";
+    }
+
+    render();
+
+</script>
+
 </body>
 </html>
