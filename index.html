@@ -124,6 +124,30 @@
             font-size: 17px;
         }
 
+        .breakdown {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .breakdown-box {
+            flex: 1;
+            background: rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 12px 8px;
+        }
+
+        .breakdown-title {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .breakdown-value {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
         .entry {
             border: 1px solid #dfe4e7;
             border-radius: 12px;
@@ -196,6 +220,67 @@
             background: #e3e7e9;
             margin: 18px 0;
         }
+
+        .history-item {
+            border: 1px solid #dfe4e7;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fafbfc;
+            cursor: pointer;
+        }
+
+        .history-item:active {
+            transform: scale(0.99);
+        }
+
+        .history-date {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .history-total {
+            color: #1d7a46;
+            font-size: 19px;
+            font-weight: bold;
+            margin-top: 7px;
+        }
+
+        .history-details {
+            color: #687780;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .history-detail-box {
+            display: none;
+            margin-top: 10px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e0e5e8;
+        }
+
+        .history-detail-box.open {
+            display: block;
+        }
+
+        .history-line {
+            padding: 7px 0;
+            border-bottom: 1px solid #edf0f2;
+        }
+
+        .history-line:last-child {
+            border-bottom: none;
+        }
+
+        .danger-small {
+            margin-top: 12px;
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -208,7 +293,7 @@
 
 <div class="container">
 
-    <!-- AJOUT PRODUCTION -->
+    <!-- AJOUT -->
 
     <div class="card">
 
@@ -217,13 +302,8 @@
         <label for="type">Type de coquille</label>
 
         <select id="type">
-            <option value="noix">
-                Noix seule
-            </option>
-
-            <option value="corail">
-                Noix + corail
-            </option>
+            <option value="noix">Noix seule</option>
+            <option value="corail">Noix + corail</option>
         </select>
 
         <label for="weight">Poids (kg)</label>
@@ -246,21 +326,17 @@
 
         <div class="rates">
             Tarif noix seule :
-            <strong id="displayRateNoix">
-                1,66 €/kg
-            </strong>
+            <strong id="displayRateNoix"></strong>
             <br>
 
             Tarif noix + corail :
-            <strong id="displayRateCorail">
-                1,56 €/kg
-            </strong>
+            <strong id="displayRateCorail"></strong>
         </div>
 
     </div>
 
 
-    <!-- TOTAL -->
+    <!-- TOTAL JOUR -->
 
     <div class="card total-card">
 
@@ -276,14 +352,44 @@
             0,00 kg
         </div>
 
+        <div class="breakdown">
+
+            <div class="breakdown-box">
+                <div class="breakdown-title">
+                    🦪 Noix
+                </div>
+
+                <div
+                    class="breakdown-value"
+                    id="noixTotal"
+                >
+                    0,00 kg
+                </div>
+            </div>
+
+            <div class="breakdown-box">
+                <div class="breakdown-title">
+                    🪸 Corail
+                </div>
+
+                <div
+                    class="breakdown-value"
+                    id="corailTotal"
+                >
+                    0,00 kg
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 
-    <!-- PRODUCTION -->
+    <!-- PRODUCTION DU JOUR -->
 
     <div class="card">
 
-        <h2>📋 Production</h2>
+        <h2>📋 Production du jour</h2>
 
         <div id="entries">
 
@@ -295,10 +401,27 @@
 
         <button
             class="reset-button"
-            onclick="resetDay()"
+            onclick="newDay()"
         >
-            🗑️ Nouvelle journée
+            📅 Terminer la journée
         </button>
+
+    </div>
+
+
+    <!-- HISTORIQUE -->
+
+    <div class="card">
+
+        <h2>📚 Historique</h2>
+
+        <div id="history">
+
+            <div class="empty">
+                Aucune journée enregistrée.
+            </div>
+
+        </div>
 
     </div>
 
@@ -336,7 +459,6 @@
                 min="0"
             >
 
-
             <label for="rateCorail">
                 Noix + corail — €/kg
             </label>
@@ -349,14 +471,12 @@
                 min="0"
             >
 
-
             <button
                 class="save-button"
                 onclick="saveRates()"
             >
                 💾 Enregistrer les tarifs
             </button>
-
 
             <div
                 id="success"
@@ -374,21 +494,12 @@
 
 <script>
 
-    /*
-    =====================================================
-    TARIFS PAR DEFAUT
-    =====================================================
-    */
+    /* ================================================
+       TARIFS
+    ================================================= */
 
     const DEFAULT_RATE_NOIX = 1.66;
     const DEFAULT_RATE_CORAIL = 1.56;
-
-
-    /*
-    =====================================================
-    RECUPERATION DES TARIFS
-    =====================================================
-    */
 
     let rateNoix = parseFloat(
         localStorage.getItem("coquillePapaRateNoix")
@@ -397,7 +508,6 @@
     let rateCorail = parseFloat(
         localStorage.getItem("coquillePapaRateCorail")
     );
-
 
     if (isNaN(rateNoix)) {
         rateNoix = DEFAULT_RATE_NOIX;
@@ -408,11 +518,9 @@
     }
 
 
-    /*
-    =====================================================
-    RECUPERATION DES PRODUCTIONS
-    =====================================================
-    */
+    /* ================================================
+       DONNEES
+    ================================================= */
 
     let entries = JSON.parse(
         localStorage.getItem(
@@ -420,12 +528,16 @@
         ) || "[]"
     );
 
+    let history = JSON.parse(
+        localStorage.getItem(
+            "coquillePapaHistory"
+        ) || "[]"
+    );
 
-    /*
-    =====================================================
-    FORMAT EURO
-    =====================================================
-    */
+
+    /* ================================================
+       FORMAT
+    ================================================= */
 
     function euro(value) {
 
@@ -436,12 +548,6 @@
     }
 
 
-    /*
-    =====================================================
-    FORMAT NOMBRE
-    =====================================================
-    */
-
     function number(value) {
 
         return value
@@ -451,11 +557,9 @@
     }
 
 
-    /*
-    =====================================================
-    SAUVEGARDE PRODUCTIONS
-    =====================================================
-    */
+    /* ================================================
+       SAUVEGARDE
+    ================================================= */
 
     function saveEntries() {
 
@@ -467,11 +571,40 @@
     }
 
 
-    /*
-    =====================================================
-    AFFICHAGE TARIFS
-    =====================================================
-    */
+    function saveHistory() {
+
+        localStorage.setItem(
+            "coquillePapaHistory",
+            JSON.stringify(history)
+        );
+
+    }
+
+
+    /* ================================================
+       DATE
+    ================================================= */
+
+    function getDate() {
+
+        const now = new Date();
+
+        return now.toLocaleDateString(
+            "fr-FR",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    }
+
+
+    /* ================================================
+       TARIFS
+    ================================================= */
 
     function updateRatesDisplay() {
 
@@ -480,17 +613,14 @@
         ).textContent =
             euro(rateNoix) + "/kg";
 
-
         document.getElementById(
             "displayRateCorail"
         ).textContent =
             euro(rateCorail) + "/kg";
 
-
         document.getElementById(
             "rateNoix"
         ).value = rateNoix;
-
 
         document.getElementById(
             "rateCorail"
@@ -499,11 +629,89 @@
     }
 
 
-    /*
-    =====================================================
-    AJOUT PRODUCTION
-    =====================================================
-    */
+    function saveRates() {
+
+        const newRateNoix =
+            parseFloat(
+                document
+                    .getElementById("rateNoix")
+                    .value
+                    .replace(",", ".")
+            );
+
+        const newRateCorail =
+            parseFloat(
+                document
+                    .getElementById("rateCorail")
+                    .value
+                    .replace(",", ".")
+            );
+
+
+        if (
+            isNaN(newRateNoix) ||
+            newRateNoix < 0
+        ) {
+
+            alert(
+                "Entre un tarif valide pour la noix."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            isNaN(newRateCorail) ||
+            newRateCorail < 0
+        ) {
+
+            alert(
+                "Entre un tarif valide pour le corail."
+            );
+
+            return;
+
+        }
+
+
+        rateNoix = newRateNoix;
+        rateCorail = newRateCorail;
+
+
+        localStorage.setItem(
+            "coquillePapaRateNoix",
+            rateNoix
+        );
+
+        localStorage.setItem(
+            "coquillePapaRateCorail",
+            rateCorail
+        );
+
+
+        updateRatesDisplay();
+
+
+        const success =
+            document.getElementById("success");
+
+        success.classList.add("show");
+
+
+        setTimeout(() => {
+
+            success.classList.remove("show");
+
+        }, 2500);
+
+    }
+
+
+    /* ================================================
+       AJOUT
+    ================================================= */
 
     function addEntry() {
 
@@ -531,6 +739,7 @@
             );
 
             return;
+
         }
 
 
@@ -585,11 +794,9 @@
     }
 
 
-    /*
-    =====================================================
-    SUPPRESSION D'UNE LIGNE
-    =====================================================
-    */
+    /* ================================================
+       SUPPRESSION
+    ================================================= */
 
     function deleteEntry(id) {
 
@@ -607,17 +814,26 @@
     }
 
 
-    /*
-    =====================================================
-    NOUVELLE JOURNEE
-    =====================================================
-    */
+    /* ================================================
+       FIN DE JOURNEE
+    ================================================= */
 
-    function resetDay() {
+    function newDay() {
+
+        if (entries.length === 0) {
+
+            alert(
+                "Aucune production à archiver."
+            );
+
+            return;
+
+        }
+
 
         if (
             !confirm(
-                "Supprimer toute la production de la journée ?"
+                "Terminer cette journée et l'ajouter à l'historique ?"
             )
         ) {
 
@@ -626,22 +842,209 @@
         }
 
 
-        entries = [];
+        let total = 0;
+        let totalWeight = 0;
+        let noixWeight = 0;
+        let corailWeight = 0;
 
+
+        entries.forEach(entry => {
+
+            total += entry.amount;
+
+            totalWeight += entry.weight;
+
+
+            if (entry.type === "noix") {
+
+                noixWeight += entry.weight;
+
+            } else {
+
+                corailWeight += entry.weight;
+
+            }
+
+        });
+
+
+        const day = {
+
+            id: Date.now(),
+
+            date: getDate(),
+
+            entries: [...entries],
+
+            total: total,
+
+            totalWeight: totalWeight,
+
+            noixWeight: noixWeight,
+
+            corailWeight: corailWeight
+
+        };
+
+
+        history.unshift(day);
+
+
+        saveHistory();
+
+
+        entries = [];
 
         saveEntries();
 
 
         render();
 
+        renderHistory();
+
+
+        alert(
+            "✅ Journée enregistrée dans l'historique."
+        );
+
     }
 
 
-    /*
-    =====================================================
-    OUVRIR / FERMER PARAMETRES
-    =====================================================
-    */
+    /* ================================================
+       HISTORIQUE
+    ================================================= */
+
+    function renderHistory() {
+
+        const container =
+            document.getElementById(
+                "history"
+            );
+
+
+        if (history.length === 0) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    Aucune journée enregistrée.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        history.forEach(day => {
+
+            const div =
+                document.createElement("div");
+
+
+            div.className =
+                "history-item";
+
+
+            div.onclick = function() {
+
+                toggleHistory(day.id);
+
+            };
+
+
+            div.innerHTML = `
+
+                <div class="history-date">
+                    📅 ${day.date}
+                </div>
+
+                <div class="history-total">
+                    ${euro(day.total)}
+                </div>
+
+                <div class="history-details">
+
+                    ${number(day.totalWeight)} kg au total
+
+                    •
+                    Noix :
+                    ${number(day.noixWeight)} kg
+
+                    •
+                    Corail :
+                    ${number(day.corailWeight)} kg
+
+                </div>
+
+                <div
+                    id="history-${day.id}"
+                    class="history-detail-box"
+                >
+
+                    <strong>
+                        Détail de la journée
+                    </strong>
+
+                    <div class="separator"></div>
+
+                    ${day.entries.map(entry => `
+
+                        <div class="history-line">
+
+                            ${entry.label}
+
+                            —
+                            ${number(entry.weight)} kg
+
+                            ×
+                            ${number(entry.rate)} €/kg
+
+                            =
+                            <strong>
+                                ${euro(entry.amount)}
+                            </strong>
+
+                        </div>
+
+                    `).join("")}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(div);
+
+        });
+
+    }
+
+
+    function toggleHistory(id) {
+
+        const element =
+            document.getElementById(
+                "history-" + id
+            );
+
+
+        if (element) {
+
+            element.classList.toggle(
+                "open"
+            );
+
+        }
+
+    }
+
+
+    /* ================================================
+       PARAMETRES
+    ================================================= */
 
     function toggleSettings() {
 
@@ -658,111 +1061,9 @@
     }
 
 
-    /*
-    =====================================================
-    ENREGISTRER LES TARIFS
-    =====================================================
-    */
-
-    function saveRates() {
-
-        const newRateNoix =
-            parseFloat(
-                document.getElementById(
-                    "rateNoix"
-                ).value
-                .replace(",", ".")
-            );
-
-
-        const newRateCorail =
-            parseFloat(
-                document.getElementById(
-                    "rateCorail"
-                ).value
-                .replace(",", ".")
-            );
-
-
-        if (
-            isNaN(newRateNoix) ||
-            newRateNoix < 0
-        ) {
-
-            alert(
-                "Entre un tarif valide pour la noix."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            isNaN(newRateCorail) ||
-            newRateCorail < 0
-        ) {
-
-            alert(
-                "Entre un tarif valide pour le corail."
-            );
-
-            return;
-
-        }
-
-
-        rateNoix =
-            newRateNoix;
-
-
-        rateCorail =
-            newRateCorail;
-
-
-        localStorage.setItem(
-            "coquillePapaRateNoix",
-            rateNoix
-        );
-
-
-        localStorage.setItem(
-            "coquillePapaRateCorail",
-            rateCorail
-        );
-
-
-        updateRatesDisplay();
-
-
-        const success =
-            document.getElementById(
-                "success"
-            );
-
-
-        success.classList.add(
-            "show"
-        );
-
-
-        setTimeout(
-            () => {
-                success.classList.remove(
-                    "show"
-                );
-            },
-            2500
-        );
-
-    }
-
-
-    /*
-    =====================================================
-    AFFICHAGE DES PRODUCTIONS
-    =====================================================
-    */
+    /* ================================================
+       AFFICHAGE JOURNEE
+    ================================================= */
 
     function render() {
 
@@ -772,9 +1073,7 @@
             );
 
 
-        if (
-            entries.length === 0
-        ) {
+        if (entries.length === 0) {
 
             container.innerHTML = `
                 <div class="empty">
@@ -787,88 +1086,92 @@
             container.innerHTML = "";
 
 
-            entries.forEach(
-                entry => {
+            entries.forEach(entry => {
 
-                    const div =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    div.className =
-                        "entry";
+                const div =
+                    document.createElement(
+                        "div"
+                    );
 
 
-                    div.innerHTML = `
+                div.className =
+                    "entry";
 
-                        <div class="entry-top">
 
-                            <div>
+                div.innerHTML = `
 
-                                <div class="entry-title">
-                                    ${entry.label}
-                                </div>
+                    <div class="entry-top">
 
-                                <div class="entry-details">
+                        <div>
 
-                                    ${number(entry.weight)}
-                                    kg
+                            <div class="entry-title">
+                                ${entry.label}
+                            </div>
 
-                                    ×
+                            <div class="entry-details">
 
-                                    ${number(entry.rate)}
-                                    €/kg
+                                ${number(entry.weight)}
+                                kg
 
-                                    =
+                                ×
 
-                                    <strong>
-                                        ${euro(entry.amount)}
-                                    </strong>
+                                ${number(entry.rate)}
+                                €/kg
 
-                                </div>
+                                =
+
+                                <strong>
+                                    ${euro(entry.amount)}
+                                </strong>
 
                             </div>
 
-
-                            <button
-                                class="delete-button"
-                                onclick="deleteEntry(${entry.id})"
-                            >
-                                Supprimer
-                            </button>
-
                         </div>
 
-                    `;
+
+                        <button
+                            class="delete-button"
+                            onclick="deleteEntry(${entry.id})"
+                        >
+                            Supprimer
+                        </button>
+
+                    </div>
+
+                `;
 
 
-                    container.appendChild(
-                        div
-                    );
+                container.appendChild(div);
 
-                }
-            );
+            });
 
         }
 
 
         let total = 0;
-
         let totalWeight = 0;
+        let noixWeight = 0;
+        let corailWeight = 0;
 
 
-        entries.forEach(
-            entry => {
+        entries.forEach(entry => {
 
-                total +=
-                    entry.amount;
+            total += entry.amount;
 
-                totalWeight +=
-                    entry.weight;
+            totalWeight += entry.weight;
+
+
+            if (entry.type === "noix") {
+
+                noixWeight += entry.weight;
+
+            } else {
+
+                corailWeight += entry.weight;
 
             }
-        );
+
+        });
 
 
         document.getElementById(
@@ -880,21 +1183,32 @@
         document.getElementById(
             "weightTotal"
         ).textContent =
-            number(totalWeight) +
-            " kg";
+            number(totalWeight) + " kg";
+
+
+        document.getElementById(
+            "noixTotal"
+        ).textContent =
+            number(noixWeight) + " kg";
+
+
+        document.getElementById(
+            "corailTotal"
+        ).textContent =
+            number(corailWeight) + " kg";
 
     }
 
 
-    /*
-    =====================================================
-    INITIALISATION
-    =====================================================
-    */
+    /* ================================================
+       DEMARRAGE
+    ================================================= */
 
     updateRatesDisplay();
 
     render();
+
+    renderHistory();
 
 </script>
 
