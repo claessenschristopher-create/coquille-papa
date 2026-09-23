@@ -496,7 +496,7 @@ button:hover{
 <header>
   <div class="brand">🦪 Coquille — Papa</div>
   <h1>Suivi de production</h1>
-  <div class="subtitle">Simple, clair et rapide à utiliser.</div>
+  <div class="subtitle">Chaque coquille compte. Chaque kilo fait la différence. 🦪</div>
 </header>
 
 <!-- AUJOURD'HUI -->
@@ -1337,17 +1337,51 @@ function buildMonthSelect(){
   const select =
     document.getElementById("monthSelect");
 
+  const startYear = 2026;
+  const startMonth = 9; // Octobre 2026
+
   const now =
     new Date();
 
+  let endYear =
+    now.getFullYear();
+
+  let endMonth =
+    now.getMonth();
+
+  // Si nous sommes avant octobre 2026,
+  // on affiche quand même octobre 2026
+  if(
+    endYear < startYear ||
+    (
+      endYear === startYear &&
+      endMonth < startMonth
+    )
+  ){
+    endYear = startYear;
+    endMonth = startMonth;
+  }
+
   select.innerHTML = "";
 
-  for(let i=0;i<12;i++){
+  let year =
+    startYear;
+
+  let month =
+    startMonth;
+
+  while(
+    year < endYear ||
+    (
+      year === endYear &&
+      month <= endMonth
+    )
+  ){
 
     const date =
       new Date(
-        now.getFullYear(),
-        now.getMonth()-i,
+        year,
+        month,
         1
       );
 
@@ -1370,7 +1404,25 @@ function buildMonthSelect(){
       );
 
     select.appendChild(option);
+
+    month++;
+
+    if(month > 11){
+      month = 0;
+      year++;
+    }
   }
+
+  // Sélectionner automatiquement
+  // le dernier mois disponible
+  const lastValue =
+    endYear +
+    "-" +
+    String(endMonth)
+      .padStart(2,"0");
+
+  select.value =
+    lastValue;
 }
 
 function renderMonth(){
