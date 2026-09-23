@@ -34,6 +34,12 @@ h1 {
   margin-bottom: 25px;
 }
 
+.date-today {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .card {
   background: white;
   border-radius: 16px;
@@ -86,6 +92,10 @@ button:hover {
   background: #b23a48;
 }
 
+.edit {
+  background: #8a6d1d;
+}
+
 .entry {
   border: 1px solid #e0e6ea;
   border-radius: 12px;
@@ -108,11 +118,24 @@ button:hover {
   margin-top: 5px;
 }
 
-.delete-btn {
+.entry-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.delete-btn,
+.edit-btn {
   width: auto;
   padding: 7px 10px;
-  background: #b23a48;
   font-size: 13px;
+}
+
+.delete-btn {
+  background: #b23a48;
+}
+
+.edit-btn {
+  background: #8a6d1d;
 }
 
 .total-main {
@@ -125,6 +148,13 @@ button:hover {
 .total-label {
   text-align: center;
   color: #687887;
+}
+
+.total-kg {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 18px;
 }
 
 .stats-grid {
@@ -178,6 +208,17 @@ button:hover {
   display: block;
 }
 
+.history-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.history-actions button {
+  font-size: 13px;
+  padding: 9px;
+}
+
 .small {
   font-size: 13px;
   color: #687887;
@@ -200,9 +241,47 @@ button:hover {
   margin: 25px 0;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  flex: 1;
+}
+
 @media (max-width: 500px) {
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .entry-top {
+    flex-direction: column;
+  }
+
+  .entry-actions {
+    width: 100%;
+  }
+
+  .entry-actions button {
+    flex: 1;
   }
 }
 </style>
@@ -215,50 +294,69 @@ button:hover {
   <h1>🦪 Coquille — Papa</h1>
   <div class="subtitle">Suivi de production</div>
 
-  <!-- AJOUT PRODUCTION -->
+  <div class="date-today" id="todayDate"></div>
+
+  <!-- AJOUT -->
   <div class="card">
     <h2>➕ Ajouter une production</h2>
 
-    <label for="type">Type</label>
+    <label for="type">Type de noix</label>
+
     <select id="type">
-      <option value="noix">Noix seule</option>
-      <option value="corail">Noix + corail</option>
+      <option value="blanche">⚪ Blanche</option>
+      <option value="corail">🪸 Corail</option>
     </select>
 
     <label for="weight">Poids (kg)</label>
+
     <input
       type="number"
       id="weight"
       min="0"
       step="0.01"
-      placeholder="Ex : 12.50"
+      placeholder="Ex : 12,50"
     >
 
     <button onclick="addEntry()">Ajouter</button>
   </div>
 
-  <!-- TOTAL DU JOUR -->
+  <!-- TOTAL JOUR -->
   <div class="card">
+
     <h2>📅 Aujourd'hui</h2>
 
     <div class="total-label">Gain du jour</div>
-    <div class="total-main" id="dailyTotal">0,00 €</div>
+
+    <div class="total-main" id="dailyTotal">
+      0,00 €
+    </div>
+
+    <div class="total-kg" id="dailyKg">
+      0,00 kg
+    </div>
 
     <div class="stats-grid">
+
       <div class="stat">
-        <div class="stat-title">🦪 Noix seule</div>
-        <div class="stat-value" id="dailyNoix">0,00 kg</div>
+        <div class="stat-title">⚪ Blanche</div>
+        <div class="stat-value" id="dailyBlanche">
+          0,00 kg
+        </div>
       </div>
 
       <div class="stat">
-        <div class="stat-title">🪸 Noix + corail</div>
-        <div class="stat-value" id="dailyCorail">0,00 kg</div>
+        <div class="stat-title">🪸 Corail</div>
+        <div class="stat-value" id="dailyCorail">
+          0,00 kg
+        </div>
       </div>
+
     </div>
   </div>
 
-  <!-- PRODUCTION DU JOUR -->
+  <!-- PRODUCTION -->
   <div class="card">
+
     <h2>📋 Production du jour</h2>
 
     <div id="entriesList"></div>
@@ -270,79 +368,124 @@ button:hover {
     >
       ✅ Terminer la journée
     </button>
+
   </div>
 
   <!-- STATISTIQUES -->
   <div class="card">
+
     <h2>📊 Statistiques</h2>
 
     <div class="stats-grid">
 
       <div class="stat">
         <div class="stat-title">Cette semaine</div>
-        <div class="stat-value" id="weekTotal">0,00 €</div>
+        <div class="stat-value" id="weekTotal">
+          0,00 €
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Cette semaine</div>
+        <div class="stat-value" id="weekKg">
+          0,00 kg
+        </div>
       </div>
 
       <div class="stat">
         <div class="stat-title">Ce mois</div>
-        <div class="stat-value" id="monthTotal">0,00 €</div>
+        <div class="stat-value" id="monthTotal">
+          0,00 €
+        </div>
       </div>
 
       <div class="stat">
-        <div class="stat-title">🦪 Noix seule</div>
-        <div class="stat-value" id="weekNoix">0,00 kg</div>
+        <div class="stat-title">Ce mois</div>
+        <div class="stat-value" id="monthKg">
+          0,00 kg
+        </div>
       </div>
 
       <div class="stat">
-        <div class="stat-title">🪸 Noix + corail</div>
-        <div class="stat-value" id="weekCorail">0,00 kg</div>
+        <div class="stat-title">⚪ Blanche — semaine</div>
+        <div class="stat-value" id="weekBlanche">
+          0,00 kg
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">🪸 Corail — semaine</div>
+        <div class="stat-value" id="weekCorail">
+          0,00 kg
+        </div>
       </div>
 
       <div class="stat">
         <div class="stat-title">Jours travaillés</div>
-        <div class="stat-value" id="daysWorked">0</div>
+        <div class="stat-value" id="daysWorked">
+          0
+        </div>
       </div>
 
       <div class="stat">
-        <div class="stat-title">Gain moyen / jour</div>
-        <div class="stat-value" id="averageDay">0,00 €</div>
+        <div class="stat-title">Moyenne / jour</div>
+        <div class="stat-value" id="averageDay">
+          0,00 €
+        </div>
       </div>
 
     </div>
+
   </div>
 
   <!-- HISTORIQUE -->
   <div class="card">
+
     <h2>🗂️ Historique</h2>
 
     <div id="historyList"></div>
+
   </div>
 
   <!-- TARIFS -->
   <div class="card">
+
     <h2>⚙️ Tarifs</h2>
 
     <div class="rate-row">
-      <label for="rateNoix">Noix seule — €/kg</label>
+
+      <label for="rateBlanche">
+        ⚪ Blanche — €/kg
+      </label>
+
       <input
         type="number"
-        id="rateNoix"
+        id="rateBlanche"
         min="0"
         step="0.01"
       >
+
     </div>
 
     <div class="rate-row">
-      <label for="rateCorail">Noix + corail — €/kg</label>
+
+      <label for="rateCorail">
+        🪸 Corail — €/kg
+      </label>
+
       <input
         type="number"
         id="rateCorail"
         min="0"
         step="0.01"
       >
+
     </div>
 
-    <button onclick="saveRates()">💾 Enregistrer les tarifs</button>
+    <button onclick="saveRates()">
+      💾 Enregistrer les tarifs
+    </button>
+
   </div>
 
   <div class="footer">
@@ -351,18 +494,81 @@ button:hover {
 
 </div>
 
+<!-- MODALE MODIFICATION -->
+<div class="modal" id="editModal">
+
+  <div class="modal-content">
+
+    <h2>✏️ Modifier la production</h2>
+
+    <label for="editType">Type</label>
+
+    <select id="editType">
+      <option value="blanche">⚪ Blanche</option>
+      <option value="corail">🪸 Corail</option>
+    </select>
+
+    <label for="editWeight">Poids (kg)</label>
+
+    <input
+      type="number"
+      id="editWeight"
+      min="0"
+      step="0.01"
+    >
+
+    <div class="modal-buttons">
+
+      <button
+        class="secondary"
+        onclick="closeEdit()"
+      >
+        Annuler
+      </button>
+
+      <button onclick="saveEdit()">
+        Enregistrer
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 <script>
 
-const DEFAULT_RATE_NOIX = 1.66;
+const DEFAULT_RATE_BLANCHE = 1.66;
 const DEFAULT_RATE_CORAIL = 1.56;
 
-let rateNoix = parseFloat(
-  localStorage.getItem("coquillePapaRateNoix")
-) || DEFAULT_RATE_NOIX;
+let rateBlanche =
+  parseFloat(
+    localStorage.getItem("coquillePapaRateBlanche")
+  );
 
-let rateCorail = parseFloat(
-  localStorage.getItem("coquillePapaRateCorail")
-) || DEFAULT_RATE_CORAIL;
+let rateCorail =
+  parseFloat(
+    localStorage.getItem("coquillePapaRateCorail")
+  );
+
+/*
+  Compatibilité avec les anciennes versions
+*/
+if (isNaN(rateBlanche)) {
+
+  rateBlanche =
+    parseFloat(
+      localStorage.getItem("coquillePapaRateNoix")
+    ) || DEFAULT_RATE_BLANCHE;
+}
+
+if (isNaN(rateCorail)) {
+
+  rateCorail =
+    parseFloat(
+      localStorage.getItem("coquillePapaRateCorail")
+    ) || DEFAULT_RATE_CORAIL;
+}
 
 let entries = JSON.parse(
   localStorage.getItem("coquillePapaEntries") || "[]"
@@ -372,10 +578,16 @@ let history = JSON.parse(
   localStorage.getItem("coquillePapaHistory") || "[]"
 );
 
-document.getElementById("rateNoix").value = rateNoix;
-document.getElementById("rateCorail").value = rateCorail;
+let editingId = null;
+
+document.getElementById("rateBlanche").value =
+  rateBlanche;
+
+document.getElementById("rateCorail").value =
+  rateCorail;
 
 function saveData() {
+
   localStorage.setItem(
     "coquillePapaEntries",
     JSON.stringify(entries)
@@ -388,37 +600,80 @@ function saveData() {
 }
 
 function formatEuro(value) {
+
   return value.toFixed(2).replace(".", ",") + " €";
 }
 
 function formatKg(value) {
+
   return value.toFixed(2).replace(".", ",") + " kg";
 }
 
-function calculateEntry(entry) {
-  const rate = entry.type === "noix"
-    ? rateNoix
-    : rateCorail;
+function getTypeLabel(type) {
 
-  return entry.weight * rate;
+  /*
+    Anciennes données :
+    noix = Blanche
+  */
+
+  if (type === "noix") {
+    return "⚪ Blanche";
+  }
+
+  if (type === "blanche") {
+    return "⚪ Blanche";
+  }
+
+  return "🪸 Corail";
+}
+
+function normalizeType(type) {
+
+  if (type === "noix") {
+    return "blanche";
+  }
+
+  return type;
+}
+
+function getRate(type) {
+
+  type = normalizeType(type);
+
+  return type === "blanche"
+    ? rateBlanche
+    : rateCorail;
+}
+
+function calculateEntry(entry) {
+
+  return entry.weight * getRate(entry.type);
 }
 
 function addEntry() {
 
-  const type = document.getElementById("type").value;
-  const weight = parseFloat(
-    document.getElementById("weight").value
-  );
+  const type =
+    document.getElementById("type").value;
+
+  const weight =
+    parseFloat(
+      document.getElementById("weight").value
+    );
 
   if (!weight || weight <= 0) {
+
     alert("Entre un poids valide.");
     return;
   }
 
   entries.push({
+
     id: Date.now(),
+
     type: type,
+
     weight: weight
+
   });
 
   document.getElementById("weight").value = "";
@@ -429,43 +684,143 @@ function addEntry() {
 
 function deleteEntry(id) {
 
-  entries = entries.filter(
-    entry => entry.id !== id
-  );
+  if (!confirm("Supprimer cette production ?")) {
+    return;
+  }
+
+  entries =
+    entries.filter(
+      entry => entry.id !== id
+    );
 
   saveData();
+  render();
+}
+
+function openEdit(id) {
+
+  const entry =
+    entries.find(
+      entry => entry.id === id
+    );
+
+  if (!entry) return;
+
+  editingId = id;
+
+  document.getElementById("editType").value =
+    normalizeType(entry.type);
+
+  document.getElementById("editWeight").value =
+    entry.weight;
+
+  document.getElementById("editModal").style.display =
+    "block";
+}
+
+function closeEdit() {
+
+  editingId = null;
+
+  document.getElementById("editModal").style.display =
+    "none";
+}
+
+function saveEdit() {
+
+  const type =
+    document.getElementById("editType").value;
+
+  const weight =
+    parseFloat(
+      document.getElementById("editWeight").value
+    );
+
+  if (!weight || weight <= 0) {
+
+    alert("Entre un poids valide.");
+    return;
+  }
+
+  const entry =
+    entries.find(
+      entry => entry.id === editingId
+    );
+
+  if (!entry) return;
+
+  entry.type = type;
+  entry.weight = weight;
+
+  saveData();
+
+  closeEdit();
   render();
 }
 
 function finishDay() {
 
   if (entries.length === 0) {
+
     alert("Aucune production à enregistrer.");
+    return;
+  }
+
+  if (
+    !confirm(
+      "Terminer cette journée et l'envoyer dans l'historique ?"
+    )
+  ) {
     return;
   }
 
   const today = new Date();
 
-  const total = entries.reduce(
-    (sum, entry) => sum + calculateEntry(entry),
-    0
-  );
+  const total =
+    entries.reduce(
+      (sum, entry) =>
+        sum + calculateEntry(entry),
+      0
+    );
 
-  const noixKg = entries
-    .filter(entry => entry.type === "noix")
-    .reduce((sum, entry) => sum + entry.weight, 0);
+  const blancheKg =
+    entries
+      .filter(
+        entry =>
+          normalizeType(entry.type) === "blanche"
+      )
+      .reduce(
+        (sum, entry) =>
+          sum + entry.weight,
+        0
+      );
 
-  const corailKg = entries
-    .filter(entry => entry.type === "corail")
-    .reduce((sum, entry) => sum + entry.weight, 0);
+  const corailKg =
+    entries
+      .filter(
+        entry =>
+          normalizeType(entry.type) === "corail"
+      )
+      .reduce(
+        (sum, entry) =>
+          sum + entry.weight,
+        0
+      );
 
   history.unshift({
+
     id: Date.now(),
+
     date: today.toISOString(),
+
     total: total,
-    noixKg: noixKg,
+
+    blancheKg: blancheKg,
+
     corailKg: corailKg,
+
     entries: [...entries]
+
   });
 
   entries = [];
@@ -474,9 +829,29 @@ function finishDay() {
   render();
 }
 
+function deleteHistory(id) {
+
+  if (
+    !confirm(
+      "Supprimer définitivement cette journée de l'historique ?"
+    )
+  ) {
+    return;
+  }
+
+  history =
+    history.filter(
+      day => day.id !== id
+    );
+
+  saveData();
+  render();
+}
+
 function getDayStart(date) {
 
   const d = new Date(date);
+
   d.setHours(0, 0, 0, 0);
 
   return d;
@@ -487,15 +862,27 @@ function isSameWeek(date1, date2) {
   const d1 = getDayStart(date1);
   const d2 = getDayStart(date2);
 
-  const day = d2.getDay() || 7;
+  const day =
+    d2.getDay() || 7;
 
-  const monday = new Date(d2);
-  monday.setDate(d2.getDate() - day + 1);
+  const monday =
+    new Date(d2);
 
-  const nextMonday = new Date(monday);
-  nextMonday.setDate(monday.getDate() + 7);
+  monday.setDate(
+    d2.getDate() - day + 1
+  );
 
-  return d1 >= monday && d1 < nextMonday;
+  const nextMonday =
+    new Date(monday);
+
+  nextMonday.setDate(
+    monday.getDate() + 7
+  );
+
+  return (
+    d1 >= monday &&
+    d1 < nextMonday
+  );
 }
 
 function isSameMonth(date1, date2) {
@@ -504,8 +891,10 @@ function isSameMonth(date1, date2) {
   const d2 = new Date(date2);
 
   return (
-    d1.getFullYear() === d2.getFullYear() &&
-    d1.getMonth() === d2.getMonth()
+    d1.getFullYear() ===
+      d2.getFullYear() &&
+    d1.getMonth() ===
+      d2.getMonth()
   );
 }
 
@@ -515,27 +904,56 @@ function getAllDays() {
 
   if (entries.length > 0) {
 
-    const total = entries.reduce(
-      (sum, entry) => sum + calculateEntry(entry),
-      0
-    );
+    const total =
+      entries.reduce(
+        (sum, entry) =>
+          sum + calculateEntry(entry),
+        0
+      );
 
-    const noixKg = entries
-      .filter(entry => entry.type === "noix")
-      .reduce((sum, entry) => sum + entry.weight, 0);
+    const blancheKg =
+      entries
+        .filter(
+          entry =>
+            normalizeType(entry.type) ===
+            "blanche"
+        )
+        .reduce(
+          (sum, entry) =>
+            sum + entry.weight,
+          0
+        );
 
-    const corailKg = entries
-      .filter(entry => entry.type === "corail")
-      .reduce((sum, entry) => sum + entry.weight, 0);
+    const corailKg =
+      entries
+        .filter(
+          entry =>
+            normalizeType(entry.type) ===
+            "corail"
+        )
+        .reduce(
+          (sum, entry) =>
+            sum + entry.weight,
+          0
+        );
 
     days.unshift({
+
       id: "current",
-      date: new Date().toISOString(),
+
+      date:
+        new Date().toISOString(),
+
       total: total,
-      noixKg: noixKg,
+
+      blancheKg: blancheKg,
+
       corailKg: corailKg,
+
       entries: entries,
+
       current: true
+
     });
   }
 
@@ -545,29 +963,62 @@ function getAllDays() {
 function renderStats() {
 
   const now = new Date();
-  const days = getAllDays();
+
+  const days =
+    getAllDays();
 
   let weekTotal = 0;
   let monthTotal = 0;
 
-  let weekNoix = 0;
+  let weekKg = 0;
+  let monthKg = 0;
+
+  let weekBlanche = 0;
   let weekCorail = 0;
 
   let monthDays = 0;
 
   days.forEach(day => {
 
-    const date = new Date(day.date);
+    const date =
+      new Date(day.date);
 
-    if (isSameWeek(date, now)) {
+    const blanche =
+      day.blancheKg ??
+      day.noixKg ??
+      0;
 
-      weekTotal += day.total;
-      weekNoix += day.noixKg;
-      weekCorail += day.corailKg;
+    const corail =
+      day.corailKg ?? 0;
+
+    const kg =
+      blanche + corail;
+
+    if (
+      isSameWeek(date, now)
+    ) {
+
+      weekTotal +=
+        day.total || 0;
+
+      weekKg += kg;
+
+      weekBlanche +=
+        blanche;
+
+      weekCorail +=
+        corail;
     }
 
-    if (isSameMonth(date, now)) {
-      monthTotal += day.total;
+    if (
+      isSameMonth(date, now)
+    ) {
+
+      monthTotal +=
+        day.total || 0;
+
+      monthKg += kg;
+
       monthDays++;
     }
   });
@@ -577,55 +1028,91 @@ function renderStats() {
       ? monthTotal / monthDays
       : 0;
 
-  document.getElementById("weekTotal").textContent =
+  document.getElementById("weekTotal")
+    .textContent =
     formatEuro(weekTotal);
 
-  document.getElementById("monthTotal").textContent =
+  document.getElementById("weekKg")
+    .textContent =
+    formatKg(weekKg);
+
+  document.getElementById("monthTotal")
+    .textContent =
     formatEuro(monthTotal);
 
-  document.getElementById("weekNoix").textContent =
-    formatKg(weekNoix);
+  document.getElementById("monthKg")
+    .textContent =
+    formatKg(monthKg);
 
-  document.getElementById("weekCorail").textContent =
+  document.getElementById("weekBlanche")
+    .textContent =
+    formatKg(weekBlanche);
+
+  document.getElementById("weekCorail")
+    .textContent =
     formatKg(weekCorail);
 
-  document.getElementById("daysWorked").textContent =
+  document.getElementById("daysWorked")
+    .textContent =
     monthDays;
 
-  document.getElementById("averageDay").textContent =
+  document.getElementById("averageDay")
+    .textContent =
     formatEuro(average);
 }
 
 function render() {
 
   let dailyTotal = 0;
-  let dailyNoix = 0;
+
+  let dailyBlanche = 0;
+
   let dailyCorail = 0;
 
   entries.forEach(entry => {
 
-    const gain = calculateEntry(entry);
+    dailyTotal +=
+      calculateEntry(entry);
 
-    dailyTotal += gain;
+    if (
+      normalizeType(entry.type) ===
+      "blanche"
+    ) {
 
-    if (entry.type === "noix") {
-      dailyNoix += entry.weight;
+      dailyBlanche +=
+        entry.weight;
+
     } else {
-      dailyCorail += entry.weight;
+
+      dailyCorail +=
+        entry.weight;
     }
   });
 
-  document.getElementById("dailyTotal").textContent =
+  const dailyKg =
+    dailyBlanche +
+    dailyCorail;
+
+  document.getElementById("dailyTotal")
+    .textContent =
     formatEuro(dailyTotal);
 
-  document.getElementById("dailyNoix").textContent =
-    formatKg(dailyNoix);
+  document.getElementById("dailyKg")
+    .textContent =
+    formatKg(dailyKg);
 
-  document.getElementById("dailyCorail").textContent =
+  document.getElementById("dailyBlanche")
+    .textContent =
+    formatKg(dailyBlanche);
+
+  document.getElementById("dailyCorail")
+    .textContent =
     formatKg(dailyCorail);
 
   renderEntries();
+
   renderHistory();
+
   renderStats();
 }
 
@@ -646,32 +1133,53 @@ function renderEntries() {
 
   entries.forEach(entry => {
 
-    const div = document.createElement("div");
+    const div =
+      document.createElement("div");
 
     div.className = "entry";
 
-    const label =
-      entry.type === "noix"
-        ? "🦪 Noix seule"
-        : "🪸 Noix + corail";
-
     div.innerHTML = `
+
       <div class="entry-top">
+
         <div>
-          <div class="entry-title">${label}</div>
-          <div class="entry-details">
-            ${formatKg(entry.weight)}
-            — ${formatEuro(calculateEntry(entry))}
+
+          <div class="entry-title">
+            ${getTypeLabel(entry.type)}
           </div>
+
+          <div class="entry-details">
+
+            ${formatKg(entry.weight)}
+            —
+            ${formatEuro(
+              calculateEntry(entry)
+            )}
+
+          </div>
+
         </div>
 
-        <button
-          class="delete-btn"
-          onclick="deleteEntry(${entry.id})"
-        >
-          Supprimer
-        </button>
+        <div class="entry-actions">
+
+          <button
+            class="edit-btn"
+            onclick="openEdit(${entry.id})"
+          >
+            ✏️ Modifier
+          </button>
+
+          <button
+            class="delete-btn"
+            onclick="deleteEntry(${entry.id})"
+          >
+            🗑️
+          </button>
+
+        </div>
+
       </div>
+
     `;
 
     container.appendChild(div);
@@ -696,53 +1204,137 @@ function renderHistory() {
   history.forEach(day => {
 
     const date =
-      new Date(day.date).toLocaleDateString("fr-FR");
+      new Date(day.date)
+        .toLocaleDateString(
+          "fr-FR",
+          {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          }
+        );
+
+    const blanche =
+      day.blancheKg ??
+      day.noixKg ??
+      0;
+
+    const corail =
+      day.corailKg ??
+      0;
 
     const wrapper =
       document.createElement("div");
 
-    wrapper.className = "history-day";
+    wrapper.className =
+      "history-day";
 
     wrapper.innerHTML = `
+
       <div
         class="history-header"
         onclick="toggleHistory(${day.id})"
       >
-        <strong>📅 ${date}</strong>
+
+        <strong>
+          📅 ${date}
+        </strong>
 
         <div>
-          ${formatEuro(day.total)}
+          💰 ${formatEuro(day.total)}
           —
-          ${formatKg(day.noixKg)}
-          noix
-          —
-          ${formatKg(day.corailKg)}
-          corail
+          ${formatKg(
+            blanche + corail
+          )}
         </div>
+
       </div>
 
       <div
         class="history-details"
         id="history-${day.id}"
       >
+
+        <div class="stats-grid">
+
+          <div class="stat">
+
+            <div class="stat-title">
+              ⚪ Blanche
+            </div>
+
+            <div class="stat-value">
+              ${formatKg(blanche)}
+            </div>
+
+          </div>
+
+          <div class="stat">
+
+            <div class="stat-title">
+              🪸 Corail
+            </div>
+
+            <div class="stat-value">
+              ${formatKg(corail)}
+            </div>
+
+          </div>
+
+        </div>
+
+        <br>
+
+        <strong>Productions :</strong>
+
+        <br><br>
+
         ${day.entries.map(entry => {
 
+          const type =
+            normalizeType(entry.type);
+
           const label =
-            entry.type === "noix"
-              ? "🦪 Noix seule"
-              : "🪸 Noix + corail";
+            type === "blanche"
+              ? "⚪ Blanche"
+              : "🪸 Corail";
 
           return `
+
             <div class="entry">
-              <div class="entry-title">${label}</div>
-              <div class="entry-details">
-                ${formatKg(entry.weight)}
-                — ${formatEuro(calculateEntry(entry))}
+
+              <div class="entry-title">
+                ${label}
               </div>
+
+              <div class="entry-details">
+
+                ${formatKg(entry.weight)}
+                —
+                ${formatEuro(
+                  calculateEntry(entry)
+                )}
+
+              </div>
+
             </div>
+
           `;
 
         }).join("")}
+
+        <div class="history-actions">
+
+          <button
+            class="danger"
+            onclick="deleteHistory(${day.id})"
+          >
+            🗑️ Supprimer cette journée
+          </button>
+
+        </div>
+
       </div>
     `;
 
@@ -753,38 +1345,68 @@ function renderHistory() {
 function toggleHistory(id) {
 
   const element =
-    document.getElementById("history-" + id);
+    document.getElementById(
+      "history-" + id
+    );
 
   if (element) {
+
     element.classList.toggle("open");
   }
 }
 
 function saveRates() {
 
-  const newNoix =
-    parseFloat(document.getElementById("rateNoix").value);
+  const newBlanche =
+    parseFloat(
+      document.getElementById(
+        "rateBlanche"
+      ).value
+    );
 
   const newCorail =
-    parseFloat(document.getElementById("rateCorail").value);
+    parseFloat(
+      document.getElementById(
+        "rateCorail"
+      ).value
+    );
 
   if (
-    isNaN(newNoix) ||
+    isNaN(newBlanche) ||
     isNaN(newCorail) ||
-    newNoix < 0 ||
+    newBlanche < 0 ||
     newCorail < 0
   ) {
 
     alert("Entre des tarifs valides.");
+
     return;
   }
 
-  rateNoix = newNoix;
-  rateCorail = newCorail;
+  rateBlanche =
+    newBlanche;
+
+  rateCorail =
+    newCorail;
+
+  localStorage.setItem(
+    "coquillePapaRateBlanche",
+    rateBlanche
+  );
+
+  localStorage.setItem(
+    "coquillePapaRateCorail",
+    rateCorail
+  );
+
+  /*
+    Anciennes clés conservées
+    pour compatibilité.
+  */
 
   localStorage.setItem(
     "coquillePapaRateNoix",
-    rateNoix
+    rateBlanche
   );
 
   localStorage.setItem(
@@ -796,6 +1418,27 @@ function saveRates() {
 
   alert("Tarifs enregistrés.");
 }
+
+function displayToday() {
+
+  const today =
+    new Date();
+
+  document.getElementById(
+    "todayDate"
+  ).textContent =
+    today.toLocaleDateString(
+      "fr-FR",
+      {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
+    );
+}
+
+displayToday();
 
 render();
 
