@@ -6,23 +6,20 @@
 <title>Coquille — Papa</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 :root{
-  --navy:#082f3d;
-  --deep:#061f29;
-  --ocean:#0b5969;
-  --sea:#168092;
-  --white:#ffffff;
-  --soft:#eef7f7;
-  --text:#17343d;
-  --muted:#71858b;
-  --sand:#e9ddc7;
-  --corail:#df806d;
-  --danger:#b84a4a;
-  --shadow:0 12px 35px rgba(4,35,45,.10);
+  --navy:#073744;
+  --ocean:#0b6675;
+  --teal:#1592a0;
+  --cream:#f5f2ea;
+  --sand:#e8ddc8;
+  --corail:#dc806d;
+  --text:#18343b;
+  --muted:#72868b;
+  --white:rgba(255,255,255,.92);
+  --border:rgba(255,255,255,.72);
+  --shadow:0 10px 30px rgba(3,39,48,.10);
 }
 
 body{
@@ -30,31 +27,28 @@ body{
   min-height:100vh;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   color:var(--text);
-
   background:
-    radial-gradient(circle at 15% 10%,rgba(42,150,165,.22),transparent 28%),
-    radial-gradient(circle at 90% 20%,rgba(233,221,199,.18),transparent 25%),
-    linear-gradient(145deg,#061f29 0%,#0a3d4a 45%,#eef5f4 100%);
-
+    radial-gradient(circle at 10% 0%,rgba(32,157,170,.25),transparent 30%),
+    radial-gradient(circle at 95% 15%,rgba(232,221,200,.25),transparent 27%),
+    linear-gradient(145deg,#062833 0%,#0b4b59 38%,#dfeeed 100%);
   background-attachment:fixed;
 }
 
-body::before{
+body:before{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.18;
+  opacity:.12;
   background:
-    radial-gradient(circle at 20% 80%,white 0 1px,transparent 2px),
-    radial-gradient(circle at 80% 35%,white 0 1px,transparent 2px);
-  background-size:120px 120px,170px 170px;
+    radial-gradient(circle,white 0 1px,transparent 1.5px);
+  background-size:90px 90px;
 }
 
 .container{
-  max-width:980px;
+  max-width:920px;
   margin:auto;
-  padding:25px 18px 50px;
+  padding:22px 18px 50px;
   position:relative;
 }
 
@@ -62,94 +56,99 @@ body::before{
 
 header{
   color:white;
-  padding:15px 5px 28px;
+  padding:5px 4px 25px;
 }
 
-.logo{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  font-size:14px;
-  font-weight:700;
-  letter-spacing:1px;
+.brand{
+  font-size:13px;
+  font-weight:800;
   text-transform:uppercase;
-  opacity:.85;
+  letter-spacing:1.2px;
+  opacity:.8;
 }
 
 header h1{
-  margin:10px 0 5px;
-  font-size:38px;
-  letter-spacing:-1.5px;
+  margin:9px 0 5px;
+  font-size:34px;
+  letter-spacing:-1px;
 }
 
 .subtitle{
-  color:rgba(255,255,255,.72);
-  font-size:15px;
+  color:rgba(255,255,255,.7);
+  font-size:14px;
 }
 
-/* CARDS */
+/* CARD */
 
 .card{
-  background:rgba(255,255,255,.90);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-  border:1px solid rgba(255,255,255,.65);
-  border-radius:24px;
-  padding:22px;
-  margin-bottom:18px;
+  background:var(--white);
+  border:1px solid var(--border);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-radius:21px;
+  padding:20px;
+  margin-bottom:16px;
   box-shadow:var(--shadow);
 }
 
 .card h2{
-  margin:0 0 17px;
+  margin:0 0 16px;
   font-size:19px;
-  letter-spacing:-.3px;
+  letter-spacing:-.2px;
 }
 
 /* TODAY */
 
 .today{
   background:
-    linear-gradient(135deg,
-      rgba(255,255,255,.96),
-      rgba(235,247,247,.90));
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.97),
+      rgba(235,247,247,.91)
+    );
 }
 
-.today-top{
+.today-header{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  gap:15px;
+  align-items:flex-start;
+  gap:20px;
 }
 
 .today-label{
   color:var(--muted);
-  font-size:13px;
-  font-weight:700;
+  font-size:12px;
+  font-weight:800;
   text-transform:uppercase;
   letter-spacing:1px;
 }
 
 .today-gain{
-  font-size:46px;
+  margin-top:5px;
+  font-size:43px;
   line-height:1;
-  font-weight:800;
-  color:var(--navy);
-  margin-top:7px;
+  font-weight:850;
   letter-spacing:-2px;
+  color:var(--navy);
+}
+
+.today-date{
+  color:var(--muted);
+  font-size:13px;
+  text-align:right;
 }
 
 .today-stats{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:22px;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:20px;
 }
 
 .today-stat{
-  background:rgba(255,255,255,.70);
-  border-radius:16px;
-  padding:14px;
+  padding:13px;
+  border-radius:14px;
+  background:rgba(255,255,255,.65);
 }
 
 .today-stat-label{
@@ -158,9 +157,9 @@ header h1{
 }
 
 .today-stat-value{
-  font-size:21px;
-  font-weight:750;
   margin-top:4px;
+  font-size:20px;
+  font-weight:800;
 }
 
 /* FORM */
@@ -168,87 +167,81 @@ header h1{
 .form-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:13px;
+  gap:12px;
 }
 
 label{
   display:block;
+  margin-bottom:6px;
   font-size:13px;
-  font-weight:700;
-  margin-bottom:7px;
-  color:var(--text);
+  font-weight:750;
 }
 
-select,
-input{
+input,
+select{
   width:100%;
-  padding:14px;
-  border:1px solid #d6e1e3;
-  border-radius:13px;
+  padding:13px;
+  border:1px solid #d8e2e4;
+  border-radius:11px;
+  background:white;
   font-size:16px;
-  background:rgba(255,255,255,.95);
   color:var(--text);
   outline:none;
-  transition:.2s;
 }
 
-select:focus,
-input:focus{
-  border-color:var(--sea);
-  box-shadow:0 0 0 3px rgba(22,128,146,.10);
+input:focus,
+select:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(21,146,160,.10);
 }
 
 /* BUTTONS */
 
 button{
   border:0;
-  border-radius:13px;
-  padding:12px 16px;
+  border-radius:11px;
+  padding:11px 15px;
   font-size:14px;
   font-weight:750;
   cursor:pointer;
-  transition:.18s;
+  transition:.18s ease;
 }
 
 button:hover{
   transform:translateY(-1px);
 }
 
-button:active{
-  transform:translateY(0);
-}
-
 .btn-primary{
   width:100%;
-  margin-top:13px;
-  background:linear-gradient(135deg,var(--navy),var(--ocean));
+  margin-top:12px;
   color:white;
-  box-shadow:0 7px 18px rgba(8,47,61,.18);
+  background:linear-gradient(135deg,var(--navy),var(--ocean));
+  box-shadow:0 6px 16px rgba(7,55,68,.18);
 }
 
 .btn-secondary{
-  background:#eaf1f2;
+  background:#edf3f4;
   color:var(--text);
+}
+
+.btn-edit{
+  background:#e4f3f5;
+  color:#126678;
 }
 
 .btn-danger{
   background:#fbe9e7;
-  color:var(--danger);
+  color:#a44848;
 }
 
-.btn-edit{
-  background:#e5f2f5;
-  color:#126579;
-}
-
-/* ENTRIES */
+/* PRODUCTION */
 
 .entry{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:15px;
-  padding:15px 0;
+  padding:14px 0;
   border-bottom:1px solid #e8eeee;
 }
 
@@ -258,8 +251,7 @@ button:active{
 
 .entry-info strong{
   display:block;
-  margin-bottom:5px;
-  font-size:15px;
+  margin-bottom:4px;
 }
 
 .entry-info span{
@@ -275,62 +267,57 @@ button:active{
 .total-line{
   display:flex;
   justify-content:space-between;
-  padding-top:16px;
+  border-top:1px solid #dfe7e8;
   margin-top:4px;
-  border-top:1px solid #dfe8e9;
+  padding-top:14px;
   font-weight:800;
 }
 
-/* BLANCHE / CORAIL */
+/* SPLIT */
 
 .split{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:13px;
+  gap:12px;
 }
 
 .mini-card{
   position:relative;
   overflow:hidden;
-  border-radius:18px;
-  padding:18px;
-  background:#f5f8f8;
-}
-
-.mini-card::after{
-  content:"";
-  position:absolute;
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  right:-30px;
-  bottom:-30px;
-  background:rgba(22,128,146,.08);
+  padding:17px;
+  border-radius:16px;
+  background:#f1f7f7;
 }
 
 .mini-card.corail{
-  background:#fff4f0;
+  background:#fff3ef;
 }
 
-.mini-card.corail::after{
-  background:rgba(223,128,109,.13);
+.mini-card:after{
+  content:"";
+  position:absolute;
+  width:70px;
+  height:70px;
+  right:-25px;
+  bottom:-25px;
+  border-radius:50%;
+  background:rgba(21,146,160,.08);
+}
+
+.mini-card.corail:after{
+  background:rgba(220,128,109,.12);
 }
 
 .mini-title{
+  color:var(--muted);
   font-size:13px;
   font-weight:750;
-  color:var(--muted);
 }
 
 .mini-card strong{
   display:block;
-  font-size:25px;
-  margin:6px 0 3px;
-}
-
-.muted{
-  color:var(--muted);
-  font-size:13px;
+  margin:5px 0 2px;
+  font-size:24px;
 }
 
 /* STATS */
@@ -338,44 +325,49 @@ button:active{
 .main-stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  gap:10px;
 }
 
 .stat{
   background:#f3f7f7;
-  border-radius:16px;
-  padding:16px;
+  border-radius:15px;
+  padding:15px;
 }
 
 .stat-label{
   color:var(--muted);
   font-size:12px;
-  margin-bottom:6px;
+  margin-bottom:5px;
 }
 
 .stat-value{
-  font-size:24px;
-  font-weight:800;
   color:var(--navy);
+  font-size:23px;
+  font-weight:800;
 }
 
 .stats-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:10px;
 }
 
 .record{
-  padding:17px;
+  padding:15px;
+  border-radius:15px;
   background:#f3f7f7;
-  border-radius:17px;
 }
 
 .record strong{
   display:block;
-  font-size:22px;
-  margin-top:6px;
+  margin-top:5px;
   color:var(--navy);
+  font-size:21px;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:13px;
 }
 
 /* LISTES */
@@ -386,7 +378,7 @@ button:active{
   justify-content:space-between;
   align-items:center;
   gap:12px;
-  padding:14px 0;
+  padding:13px 0;
   border-bottom:1px solid #e8eeee;
 }
 
@@ -398,19 +390,13 @@ button:active{
 .empty{
   color:var(--muted);
   text-align:center;
-  padding:16px 0;
+  padding:14px 0;
 }
 
-/* TARIFS */
-
-.settings-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:13px;
-}
+/* MONTH */
 
 .month-select{
-  margin-bottom:14px;
+  margin-bottom:13px;
 }
 
 /* MODAL */
@@ -419,20 +405,20 @@ button:active{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(3,24,31,.55);
-  backdrop-filter:blur(5px);
+  z-index:20;
   align-items:center;
   justify-content:center;
   padding:20px;
-  z-index:10;
+  background:rgba(3,25,32,.55);
+  backdrop-filter:blur(5px);
 }
 
 .modal-box{
-  background:white;
   width:100%;
   max-width:430px;
-  border-radius:23px;
-  padding:22px;
+  padding:21px;
+  border-radius:21px;
+  background:white;
   box-shadow:0 25px 70px rgba(0,0,0,.25);
 }
 
@@ -459,32 +445,32 @@ button:active{
   }
 
   header{
-    padding:10px 5px 22px;
+    padding:5px 4px 20px;
   }
 
   header h1{
-    font-size:30px;
+    font-size:29px;
   }
 
   .card{
     padding:17px;
-    border-radius:20px;
+    border-radius:18px;
   }
 
   .today-gain{
-    font-size:39px;
+    font-size:38px;
   }
 
+  .today-stats,
   .main-stats,
   .form-grid,
   .split,
-  .stats-grid,
-  .settings-row{
+  .stats-grid{
     grid-template-columns:1fr;
   }
 
   .today-stats{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr 1fr;
   }
 
   .entry{
@@ -508,16 +494,25 @@ button:active{
 <div class="container">
 
 <header>
-  <div class="logo">🦪 Coquille — Papa</div>
-  <h1>Le suivi de ta journée.</h1>
-  <div class="subtitle">Simple, rapide et toujours sous contrôle.</div>
+  <div class="brand">🦪 Coquille — Papa</div>
+  <h1>Suivi de production</h1>
+  <div class="subtitle">Simple, clair et rapide à utiliser.</div>
 </header>
+
+<!-- AUJOURD'HUI -->
 
 <section class="card today">
 
-  <div class="today-label">Aujourd'hui</div>
+  <div class="today-header">
 
-  <div class="today-gain" id="todayGain">0,00 €</div>
+    <div>
+      <div class="today-label">Aujourd'hui</div>
+      <div class="today-gain" id="todayGain">0,00 €</div>
+    </div>
+
+    <div class="today-date" id="todayDate"></div>
+
+  </div>
 
   <div class="today-stats">
 
@@ -527,13 +522,20 @@ button:active{
     </div>
 
     <div class="today-stat">
-      <div class="today-stat-label">Productions</div>
-      <div class="today-stat-value" id="todayEntries">0</div>
+      <div class="today-stat-label">Blanche</div>
+      <div class="today-stat-value" id="todayBlancheKg">0 kg</div>
+    </div>
+
+    <div class="today-stat">
+      <div class="today-stat-label">Corail</div>
+      <div class="today-stat-value" id="todayCorailKg">0 kg</div>
     </div>
 
   </div>
 
 </section>
+
+<!-- AJOUT -->
 
 <section class="card">
 
@@ -565,10 +567,12 @@ button:active{
   </div>
 
   <button class="btn-primary" onclick="addEntry()">
-    Ajouter la production
+    Ajouter
   </button>
 
 </section>
+
+<!-- JOUR -->
 
 <section class="card">
 
@@ -590,6 +594,8 @@ button:active{
 
 </section>
 
+<!-- REPARTITION -->
+
 <section class="card">
 
   <h2>🦪 Répartition</h2>
@@ -600,7 +606,7 @@ button:active{
 
       <div class="mini-title">Blanche</div>
 
-      <strong id="todayBlancheKg">0 kg</strong>
+      <strong id="todayBlancheKg2">0 kg</strong>
 
       <div class="muted" id="todayBlancheGain">
         0,00 €
@@ -612,7 +618,7 @@ button:active{
 
       <div class="mini-title">Corail</div>
 
-      <strong id="todayCorailKg">0 kg</strong>
+      <strong id="todayCorailKg2">0 kg</strong>
 
       <div class="muted" id="todayCorailGain">
         0,00 €
@@ -623,6 +629,8 @@ button:active{
   </div>
 
 </section>
+
+<!-- SEMAINE -->
 
 <section class="card">
 
@@ -641,13 +649,15 @@ button:active{
     </div>
 
     <div class="stat">
-      <div class="stat-label">Jours</div>
+      <div class="stat-label">Jours travaillés</div>
       <div class="stat-value" id="weekDays">0</div>
     </div>
 
   </div>
 
 </section>
+
+<!-- MOIS -->
 
 <section class="card">
 
@@ -672,13 +682,15 @@ button:active{
     </div>
 
     <div class="stat">
-      <div class="stat-label">Jours</div>
+      <div class="stat-label">Jours travaillés</div>
       <div class="stat-value" id="monthDays">0</div>
     </div>
 
   </div>
 
 </section>
+
+<!-- STATISTIQUES -->
 
 <section class="card">
 
@@ -710,6 +722,8 @@ button:active{
 
 </section>
 
+<!-- RECORDS -->
+
 <section class="card">
 
   <h2>🏆 Records</h2>
@@ -723,7 +737,7 @@ button:active{
     </div>
 
     <div class="record">
-      <div class="muted">Plus grosse journée en kg</div>
+      <div class="muted">Plus grosse journée</div>
       <strong id="bestKg">0 kg</strong>
       <div class="muted" id="bestKgDate">—</div>
     </div>
@@ -731,6 +745,8 @@ button:active{
   </div>
 
 </section>
+
+<!-- SEMAINES -->
 
 <section class="card">
 
@@ -740,6 +756,8 @@ button:active{
 
 </section>
 
+<!-- HISTORIQUE -->
+
 <section class="card">
 
   <h2>📚 Historique</h2>
@@ -748,20 +766,32 @@ button:active{
 
 </section>
 
+<!-- TARIFS -->
+
 <section class="card">
 
   <h2>⚙️ Tarifs</h2>
 
-  <div class="settings-row">
+  <div class="form-grid">
 
     <div>
       <label>Blanche €/kg</label>
-      <input id="rateBlanche" type="number" step="0.01" min="0">
+      <input
+        id="rateBlanche"
+        type="number"
+        step="0.01"
+        min="0"
+      >
     </div>
 
     <div>
       <label>Corail €/kg</label>
-      <input id="rateCorail" type="number" step="0.01" min="0">
+      <input
+        id="rateCorail"
+        type="number"
+        step="0.01"
+        min="0"
+      >
     </div>
 
   </div>
@@ -773,6 +803,8 @@ button:active{
 </section>
 
 </div>
+
+<!-- MODAL -->
 
 <div class="modal" id="editModal">
 
@@ -836,26 +868,31 @@ let history = JSON.parse(
   localStorage.getItem("coquillePapaHistory") || "[]"
 );
 
-let rateBlanche = parseFloat(
-  localStorage.getItem("coquillePapaRateBlanche")
-) || parseFloat(
-  localStorage.getItem("coquillePapaRateNoix")
-) || DEFAULT_BLANCHE;
+let rateBlanche =
+  parseFloat(
+    localStorage.getItem("coquillePapaRateBlanche")
+  ) ||
+  parseFloat(
+    localStorage.getItem("coquillePapaRateNoix")
+  ) ||
+  DEFAULT_BLANCHE;
 
-let rateCorail = parseFloat(
-  localStorage.getItem("coquillePapaRateCorail")
-) || DEFAULT_CORAIL;
+let rateCorail =
+  parseFloat(
+    localStorage.getItem("coquillePapaRateCorail")
+  ) ||
+  DEFAULT_CORAIL;
 
 function money(value){
   return Number(value || 0)
     .toFixed(2)
-    .replace(".", ",") + " €";
+    .replace(".",",") + " €";
 }
 
 function kg(value){
   return Number(value || 0)
     .toFixed(2)
-    .replace(".", ",") + " kg";
+    .replace(".",",") + " kg";
 }
 
 function currentRate(type){
@@ -911,9 +948,9 @@ function addEntry(){
 
     id:Date.now(),
 
-    type,
+    type:type,
 
-    weight,
+    weight:weight,
 
     gain:
       weight * currentRate(type)
@@ -1126,29 +1163,47 @@ function renderDay(){
     .textContent =
     kg(s.totalKg);
 
-  document.getElementById("todayEntries")
-    .textContent =
-    entries.length;
-
-  document.getElementById("dayTotal")
-    .textContent =
-    money(s.totalGain);
-
   document.getElementById("todayBlancheKg")
     .textContent =
     kg(s.blancheKg);
-
-  document.getElementById("todayBlancheGain")
-    .textContent =
-    money(s.blancheGain);
 
   document.getElementById("todayCorailKg")
     .textContent =
     kg(s.corailKg);
 
+  document.getElementById("todayBlancheKg2")
+    .textContent =
+    kg(s.blancheKg);
+
+  document.getElementById("todayCorailKg2")
+    .textContent =
+    kg(s.corailKg);
+
+  document.getElementById("todayBlancheGain")
+    .textContent =
+    money(s.blancheGain);
+
   document.getElementById("todayCorailGain")
     .textContent =
     money(s.corailGain);
+
+  document.getElementById("dayTotal")
+    .textContent =
+    money(s.totalGain);
+}
+
+function renderTodayDate(){
+
+  document.getElementById("todayDate")
+    .textContent =
+    new Date().toLocaleDateString(
+      "fr-FR",
+      {
+        weekday:"long",
+        day:"numeric",
+        month:"long"
+      }
+    );
 }
 
 function getDateOnly(date){
@@ -1219,15 +1274,10 @@ function finishDay(){
 
     entries:
       entries.map(e => ({
-
         id:e.id,
-
         type:e.type,
-
         weight:e.weight,
-
         gain:calculateGain(e)
-
       }))
 
   };
@@ -1253,7 +1303,6 @@ function renderWeek(){
     );
 
   let gain = 0;
-
   let totalKg = 0;
 
   days.forEach(day => {
@@ -1293,12 +1342,12 @@ function buildMonthSelect(){
 
   select.innerHTML = "";
 
-  for(let i = 0; i < 12; i++){
+  for(let i=0;i<12;i++){
 
     const date =
       new Date(
         now.getFullYear(),
-        now.getMonth() - i,
+        now.getMonth()-i,
         1
       );
 
@@ -1354,7 +1403,6 @@ function renderMonth(){
     });
 
   let totalGain = 0;
-
   let totalKg = 0;
 
   days.forEach(day => {
@@ -1455,17 +1503,12 @@ function renderMonthWeeks(days){
 
         return `
           <div class="week-row">
-
-            <span>
-              Semaine ${index + 1}
-            </span>
-
+            <span>Semaine ${index+1}</span>
             <strong>
               ${kg(week.kg)}
               ·
               ${money(week.gain)}
             </strong>
-
           </div>
         `;
 
@@ -1476,7 +1519,6 @@ function renderStatistics(){
 
   let totalGain = 0;
   let totalKg = 0;
-
   let blancheKg = 0;
   let corailKg = 0;
 
@@ -1506,16 +1548,12 @@ function renderStatistics(){
 
   document.getElementById("averageDay")
     .textContent =
-    money(
-      days
-        ? totalGain / days
-        : 0
-    );
+    money(days ? totalGain/days : 0);
 
   document.getElementById("averageKg")
     .textContent =
     totalKg
-      ? money(totalGain / totalKg)
+      ? money(totalGain/totalKg)
       : "0,00 €";
 
   document.getElementById("allBlancheKg")
@@ -1545,7 +1583,6 @@ function renderStatistics(){
       Number(day.total) >
       Number(bestGain.total)
     ){
-
       bestGain = day;
     }
 
@@ -1560,7 +1597,6 @@ function renderStatistics(){
         )
       )
     ){
-
       bestKg = day;
     }
 
@@ -1590,7 +1626,7 @@ function renderStatistics(){
 
   if(bestKg){
 
-    const bestKgValue =
+    const value =
       Number(
         bestKg.totalKg ||
         (
@@ -1601,7 +1637,7 @@ function renderStatistics(){
 
     document.getElementById("bestKg")
       .textContent =
-      kg(bestKgValue);
+      kg(value);
 
     document.getElementById("bestKgDate")
       .textContent =
@@ -1652,7 +1688,6 @@ function renderHistory(){
         <div class="history-row">
 
           <div>
-
             <strong>
               ${new Date(day.date)
                 .toLocaleDateString("fr-FR")}
@@ -1661,7 +1696,6 @@ function renderHistory(){
             <div class="muted">
               ${kg(totalKg)}
             </div>
-
           </div>
 
           <strong>
@@ -1699,7 +1733,6 @@ function saveRates(){
   }
 
   rateBlanche = blanche;
-
   rateCorail = corail;
 
   localStorage.setItem(
@@ -1719,29 +1752,22 @@ function saveRates(){
 
 function renderAll(){
 
-  document.getElementById("rateBlanche")
-    .value =
+  document.getElementById("rateBlanche").value =
     rateBlanche;
 
-  document.getElementById("rateCorail")
-    .value =
+  document.getElementById("rateCorail").value =
     rateCorail;
 
+  renderTodayDate();
   renderEntries();
-
   renderDay();
-
   renderWeek();
-
   renderMonth();
-
   renderStatistics();
-
   renderHistory();
 }
 
 buildMonthSelect();
-
 renderAll();
 
 </script>
