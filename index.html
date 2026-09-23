@@ -6,336 +6,282 @@
 <title>Coquille — Papa</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f2f6f8;
+  color:#17324d
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f6f8;
-  color: #17324d;
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:20px
 }
 
-.container {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
+h1{text-align:center;margin-bottom:5px}
+.subtitle{text-align:center;color:#687887;margin-bottom:10px}
+
+.date-today{
+  text-align:center;
+  font-weight:bold;
+  margin-bottom:25px
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 5px;
+.card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,.07)
 }
 
-.subtitle {
-  text-align: center;
-  color: #687887;
-  margin-bottom: 10px;
+.card h2{margin-top:0}
+
+.section-description{
+  color:#687887;
+  font-size:14px;
+  margin-top:-8px;
+  margin-bottom:18px
 }
 
-.date-today {
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 25px;
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px
 }
 
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 18px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+select,input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ccd6dd;
+  border-radius:10px;
+  font-size:16px;
+  margin-bottom:15px
 }
 
-.card h2 {
-  margin-top: 0;
+button{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#17324d;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer
 }
 
-.section-description {
-  color: #687887;
-  font-size: 14px;
-  margin-top: -8px;
-  margin-bottom: 18px;
+button:hover{opacity:.9}
+.secondary{background:#687887}
+.danger{background:#b23a48}
+.edit-btn{background:#8a6d1d}
+
+.entry{
+  border:1px solid #e0e6ea;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:10px
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 7px;
+.entry-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px
 }
 
-select,
-input {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #ccd6dd;
-  border-radius: 10px;
-  font-size: 16px;
-  margin-bottom: 15px;
+.entry-title{font-weight:bold}
+.entry-details{color:#687887;margin-top:5px}
+
+.entry-actions{
+  display:flex;
+  gap:6px
 }
 
-button {
-  width: 100%;
-  padding: 13px;
-  border: none;
-  border-radius: 10px;
-  background: #17324d;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
+.delete-btn,.edit-btn{
+  width:auto;
+  padding:7px 10px;
+  font-size:13px
 }
 
-button:hover {
-  opacity: 0.9;
+.total-main{
+  text-align:center;
+  font-size:34px;
+  font-weight:bold;
+  margin:10px 0
 }
 
-.secondary {
-  background: #687887;
+.total-label{
+  text-align:center;
+  color:#687887
 }
 
-.danger {
-  background: #b23a48;
+.total-kg{
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:18px
 }
 
-.edit {
-  background: #8a6d1d;
+.stats-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px
 }
 
-.entry {
-  border: 1px solid #e0e6ea;
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 10px;
+.stat{
+  background:#f2f6f8;
+  border-radius:12px;
+  padding:15px
 }
 
-.entry-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+.stat-title{
+  color:#687887;
+  font-size:14px
 }
 
-.entry-title {
-  font-weight: bold;
+.stat-value{
+  font-size:22px;
+  font-weight:bold;
+  margin-top:5px
 }
 
-.entry-details {
-  color: #687887;
-  margin-top: 5px;
+.highlight{
+  text-align:center;
+  background:#f2f6f8;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:15px
 }
 
-.entry-actions {
-  display: flex;
-  gap: 6px;
+.highlight-label{
+  color:#687887;
+  font-size:14px
 }
 
-.delete-btn,
-.edit-btn {
-  width: auto;
-  padding: 7px 10px;
-  font-size: 13px;
+.highlight-value{
+  font-size:32px;
+  font-weight:bold;
+  margin-top:5px
 }
 
-.delete-btn {
-  background: #b23a48;
+.type-stat{
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:12px
 }
 
-.edit-btn {
-  background: #8a6d1d;
+.blanche{
+  background:#f7f7f7;
+  border:1px solid #e1e1e1
 }
 
-.total-main {
-  text-align: center;
-  font-size: 34px;
-  font-weight: bold;
-  margin: 10px 0;
+.corail{
+  background:#fff5f1;
+  border:1px solid #f0d7cd
 }
 
-.total-label {
-  text-align: center;
-  color: #687887;
+.type-title{
+  font-weight:bold;
+  margin-bottom:8px
 }
 
-.total-kg {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 18px;
+.type-main{
+  font-size:24px;
+  font-weight:bold
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.type-sub{
+  color:#687887;
+  margin-top:4px
 }
 
-.stat {
-  background: #f2f6f8;
-  border-radius: 12px;
-  padding: 15px;
+.week-row{
+  border:1px solid #dfe6eb;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:10px
 }
 
-.stat-title {
-  color: #687887;
-  font-size: 14px;
+.week-row-title{
+  font-weight:bold;
+  margin-bottom:8px
 }
 
-.stat-value {
-  font-size: 22px;
-  font-weight: bold;
-  margin-top: 5px;
+.history-day{
+  border:1px solid #dfe6eb;
+  border-radius:12px;
+  margin-bottom:10px;
+  overflow:hidden
 }
 
-.week-highlight {
-  text-align: center;
-  background: #f2f6f8;
-  border-radius: 14px;
-  padding: 18px;
-  margin-bottom: 15px;
+.history-header{
+  padding:15px;
+  cursor:pointer;
+  background:#f8fafb
 }
 
-.week-highlight-label {
-  color: #687887;
-  font-size: 14px;
+.history-header strong{
+  display:block;
+  margin-bottom:5px
 }
 
-.week-highlight-value {
-  font-size: 32px;
-  font-weight: bold;
-  margin-top: 5px;
+.history-details{
+  display:none;
+  padding:15px;
+  border-top:1px solid #dfe6eb
 }
 
-.type-stat {
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
+.history-details.open{display:block}
+
+.history-actions{
+  margin-top:12px
 }
 
-.type-stat-blanche {
-  background: #f7f7f7;
-  border: 1px solid #e1e1e1;
+.empty{
+  text-align:center;
+  color:#687887;
+  padding:15px
 }
 
-.type-stat-corail {
-  background: #fff5f1;
-  border: 1px solid #f0d7cd;
+.footer{
+  text-align:center;
+  color:#8997a3;
+  font-size:12px;
+  margin:25px 0
 }
 
-.type-stat-title {
-  font-weight: bold;
-  margin-bottom: 8px;
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  padding:20px;
+  z-index:1000
 }
 
-.type-stat-main {
-  font-size: 24px;
-  font-weight: bold;
+.modal-content{
+  background:white;
+  max-width:500px;
+  margin:60px auto;
+  padding:20px;
+  border-radius:16px
 }
 
-.type-stat-sub {
-  color: #687887;
-  margin-top: 4px;
+.modal-buttons{
+  display:flex;
+  gap:10px
 }
 
-.history-day {
-  border: 1px solid #dfe6eb;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
+.modal-buttons button{flex:1}
 
-.history-header {
-  padding: 15px;
-  cursor: pointer;
-  background: #f8fafb;
-}
-
-.history-header strong {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.history-details {
-  display: none;
-  padding: 15px;
-  border-top: 1px solid #dfe6eb;
-}
-
-.history-details.open {
-  display: block;
-}
-
-.history-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.history-actions button {
-  font-size: 13px;
-  padding: 9px;
-}
-
-.empty {
-  text-align: center;
-  color: #687887;
-  padding: 15px;
-}
-
-.rate-row {
-  margin-bottom: 10px;
-}
-
-.footer {
-  text-align: center;
-  color: #8997a3;
-  font-size: 12px;
-  margin: 25px 0;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  padding: 20px;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  max-width: 500px;
-  margin: 60px auto;
-  padding: 20px;
-  border-radius: 16px;
-}
-
-.modal-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.modal-buttons button {
-  flex: 1;
-}
-
-@media (max-width: 500px) {
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .entry-top {
-    flex-direction: column;
-  }
-
-  .entry-actions {
-    width: 100%;
-  }
-
-  .entry-actions button {
-    flex: 1;
-  }
+@media(max-width:500px){
+  .stats-grid{grid-template-columns:1fr}
+  .entry-top{flex-direction:column}
+  .entry-actions{width:100%}
+  .entry-actions button{flex:1}
 }
 </style>
 </head>
@@ -344,1927 +290,1362 @@ button:hover {
 
 <div class="container">
 
-  <h1>🦪 Coquille — Papa</h1>
+<h1>🦪 Coquille — Papa</h1>
+<div class="subtitle">Suivi de production</div>
+<div class="date-today" id="todayDate"></div>
 
-  <div class="subtitle">
-    Suivi de production
-  </div>
+<!-- AJOUT -->
 
-  <div
-    class="date-today"
-    id="todayDate"
-  ></div>
+<div class="card">
 
+<h2>➕ Ajouter une production</h2>
 
-  <!-- AJOUT PRODUCTION -->
+<label>Type de noix</label>
 
-  <div class="card">
+<select id="type">
+<option value="blanche">⚪ Blanche</option>
+<option value="corail">🪸 Corail</option>
+</select>
 
-    <h2>➕ Ajouter une production</h2>
+<label>Poids (kg)</label>
 
-    <label for="type">
-      Type de noix
-    </label>
+<input
+ id="weight"
+ type="number"
+ min="0"
+ step="0.01"
+ placeholder="Ex : 12,50"
+>
 
-    <select id="type">
-
-      <option value="blanche">
-        ⚪ Blanche
-      </option>
-
-      <option value="corail">
-        🪸 Corail
-      </option>
-
-    </select>
-
-    <label for="weight">
-      Poids (kg)
-    </label>
-
-    <input
-      type="number"
-      id="weight"
-      min="0"
-      step="0.01"
-      placeholder="Ex : 12,50"
-    >
-
-    <button onclick="addEntry()">
-      Ajouter
-    </button>
-
-  </div>
-
-
-  <!-- TOTAL JOUR -->
-
-  <div class="card">
-
-    <h2>📅 Aujourd'hui</h2>
-
-    <div class="total-label">
-      Gain du jour
-    </div>
-
-    <div
-      class="total-main"
-      id="dailyTotal"
-    >
-      0,00 €
-    </div>
-
-    <div
-      class="total-kg"
-      id="dailyKg"
-    >
-      0,00 kg
-    </div>
-
-    <div class="stats-grid">
-
-      <div class="stat">
-
-        <div class="stat-title">
-          ⚪ Blanche
-        </div>
-
-        <div
-          class="stat-value"
-          id="dailyBlanche"
-        >
-          0,00 kg
-        </div>
-
-      </div>
-
-      <div class="stat">
-
-        <div class="stat-title">
-          🪸 Corail
-        </div>
-
-        <div
-          class="stat-value"
-          id="dailyCorail"
-        >
-          0,00 kg
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- PRODUCTION DU JOUR -->
-
-  <div class="card">
-
-    <h2>📋 Production du jour</h2>
-
-    <div id="entriesList"></div>
-
-    <button
-      class="secondary"
-      onclick="finishDay()"
-      style="margin-top:10px;"
-    >
-      ✅ Terminer la journée
-    </button>
-
-  </div>
-
-
-  <!-- BILAN SEMAINE -->
-
-  <div class="card">
-
-    <h2>📊 Bilan de la semaine</h2>
-
-    <div
-      class="section-description"
-      id="weekPeriod"
-    ></div>
-
-
-    <div class="week-highlight">
-
-      <div class="week-highlight-label">
-        💰 Total gagné cette semaine
-      </div>
-
-      <div
-        class="week-highlight-value"
-        id="weekTotalBig"
-      >
-        0,00 €
-      </div>
-
-    </div>
-
-
-    <div class="stats-grid">
-
-      <div class="stat">
-
-        <div class="stat-title">
-          ⚖️ Total kilos
-        </div>
-
-        <div
-          class="stat-value"
-          id="weekKg"
-        >
-          0,00 kg
-        </div>
-
-      </div>
-
-      <div class="stat">
-
-        <div class="stat-title">
-          📅 Jours travaillés
-        </div>
-
-        <div
-          class="stat-value"
-          id="weekDays"
-        >
-          0
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <br>
-
-
-    <div class="type-stat type-stat-blanche">
-
-      <div class="type-stat-title">
-        ⚪ Blanche
-      </div>
-
-      <div
-        class="type-stat-main"
-        id="weekBlancheKg"
-      >
-        0,00 kg
-      </div>
-
-      <div
-        class="type-stat-sub"
-        id="weekBlancheMoney"
-      >
-        0,00 €
-      </div>
-
-    </div>
-
-
-    <div class="type-stat type-stat-corail">
-
-      <div class="type-stat-title">
-        🪸 Corail
-      </div>
-
-      <div
-        class="type-stat-main"
-        id="weekCorailKg"
-      >
-        0,00 kg
-      </div>
-
-      <div
-        class="type-stat-sub"
-        id="weekCorailMoney"
-      >
-        0,00 €
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-title">
-        💶 Moyenne gagnée par jour
-      </div>
-
-      <div
-        class="stat-value"
-        id="weekAverage"
-      >
-        0,00 €
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- STATISTIQUES MOIS -->
-
-  <div class="card">
-
-    <h2>📅 Statistiques du mois</h2>
-
-    <div class="stats-grid">
-
-      <div class="stat">
-
-        <div class="stat-title">
-          💰 Total
-        </div>
-
-        <div
-          class="stat-value"
-          id="monthTotal"
-        >
-          0,00 €
-        </div>
-
-      </div>
-
-      <div class="stat">
-
-        <div class="stat-title">
-          ⚖️ Total kilos
-        </div>
-
-        <div
-          class="stat-value"
-          id="monthKg"
-        >
-          0,00 kg
-        </div>
-
-      </div>
-
-      <div class="stat">
-
-        <div class="stat-title">
-          📅 Jours travaillés
-        </div>
-
-        <div
-          class="stat-value"
-          id="monthDays"
-        >
-          0
-        </div>
-
-      </div>
-
-      <div class="stat">
-
-        <div class="stat-title">
-          💶 Moyenne / jour
-        </div>
-
-        <div
-          class="stat-value"
-          id="monthAverage"
-        >
-          0,00 €
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- HISTORIQUE -->
-
-  <div class="card">
-
-    <h2>🗂️ Historique</h2>
-
-    <div id="historyList"></div>
-
-  </div>
-
-
-  <!-- TARIFS -->
-
-  <div class="card">
-
-    <h2>⚙️ Tarifs</h2>
-
-    <div class="rate-row">
-
-      <label for="rateBlanche">
-        ⚪ Blanche — €/kg
-      </label>
-
-      <input
-        type="number"
-        id="rateBlanche"
-        min="0"
-        step="0.01"
-      >
-
-    </div>
-
-    <div class="rate-row">
-
-      <label for="rateCorail">
-        🪸 Corail — €/kg
-      </label>
-
-      <input
-        type="number"
-        id="rateCorail"
-        min="0"
-        step="0.01"
-      >
-
-    </div>
-
-    <button onclick="saveRates()">
-      💾 Enregistrer les tarifs
-    </button>
-
-  </div>
-
-
-  <div class="footer">
-    Coquille — Papa
-  </div>
+<button onclick="addEntry()">Ajouter</button>
 
 </div>
 
 
-<!-- MODALE MODIFICATION -->
+<!-- JOUR -->
+
+<div class="card">
+
+<h2>📅 Aujourd'hui</h2>
+
+<div class="total-label">Gain du jour</div>
+
+<div class="total-main" id="dailyTotal">0,00 €</div>
+
+<div class="total-kg" id="dailyKg">0,00 kg</div>
+
+<div class="stats-grid">
+
+<div class="stat">
+<div class="stat-title">⚪ Blanche</div>
+<div class="stat-value" id="dailyBlanche">0,00 kg</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">🪸 Corail</div>
+<div class="stat-value" id="dailyCorail">0,00 kg</div>
+</div>
+
+</div>
+</div>
+
+
+<!-- PRODUCTIONS -->
+
+<div class="card">
+
+<h2>📋 Production du jour</h2>
+
+<div id="entriesList"></div>
+
+<button
+ class="secondary"
+ onclick="finishDay()"
+>
+✅ Terminer la journée
+</button>
+
+</div>
+
+
+<!-- SEMAINE -->
+
+<div class="card">
+
+<h2>📊 Bilan de la semaine</h2>
+
+<div class="section-description" id="weekPeriod"></div>
+
+<div class="highlight">
+
+<div class="highlight-label">
+💰 Total gagné cette semaine
+</div>
+
+<div class="highlight-value" id="weekTotal">
+0,00 €
+</div>
+
+</div>
+
+<div class="stats-grid">
+
+<div class="stat">
+<div class="stat-title">⚖️ Total kilos</div>
+<div class="stat-value" id="weekKg">0,00 kg</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">📅 Jours travaillés</div>
+<div class="stat-value" id="weekDays">0</div>
+</div>
+
+</div>
+
+<br>
+
+<div class="type-stat blanche">
+
+<div class="type-title">⚪ Blanche</div>
+
+<div class="type-main" id="weekBlancheKg">
+0,00 kg
+</div>
+
+<div class="type-sub" id="weekBlancheMoney">
+0,00 €
+</div>
+
+</div>
+
+<div class="type-stat corail">
+
+<div class="type-title">🪸 Corail</div>
+
+<div class="type-main" id="weekCorailKg">
+0,00 kg
+</div>
+
+<div class="type-sub" id="weekCorailMoney">
+0,00 €
+</div>
+
+</div>
+
+<div class="stat">
+<div class="stat-title">💶 Moyenne / jour</div>
+<div class="stat-value" id="weekAverage">0,00 €</div>
+</div>
+
+</div>
+
+
+<!-- MOIS -->
+
+<div class="card">
+
+<h2>📅 Bilan mensuel</h2>
+
+<label>Choisir le mois</label>
+
+<select id="monthSelect" onchange="renderMonth()"></select>
+
+<div class="highlight">
+
+<div class="highlight-label">
+💰 Total gagné
+</div>
+
+<div class="highlight-value" id="monthTotal">
+0,00 €
+</div>
+
+</div>
+
+<div class="stats-grid">
+
+<div class="stat">
+<div class="stat-title">⚖️ Total kilos</div>
+<div class="stat-value" id="monthKg">0,00 kg</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">📅 Jours travaillés</div>
+<div class="stat-value" id="monthDays">0</div>
+</div>
+
+</div>
+
+<br>
+
+<div class="type-stat blanche">
+
+<div class="type-title">⚪ Blanche</div>
+
+<div class="type-main" id="monthBlancheKg">
+0,00 kg
+</div>
+
+<div class="type-sub" id="monthBlancheMoney">
+0,00 €
+</div>
+
+</div>
+
+<div class="type-stat corail">
+
+<div class="type-title">🪸 Corail</div>
+
+<div class="type-main" id="monthCorailKg">
+0,00 kg
+</div>
+
+<div class="type-sub" id="monthCorailMoney">
+0,00 €
+</div>
+
+</div>
+
+<div class="stat">
+<div class="stat-title">💶 Moyenne / jour</div>
+<div class="stat-value" id="monthAverage">0,00 €</div>
+</div>
+
+</div>
+
+
+<!-- SEMAINES DU MOIS -->
+
+<div class="card">
+
+<h2>📈 Semaines du mois</h2>
 
 <div
-  class="modal"
-  id="editModal"
+ class="section-description"
+ id="monthWeeksDescription"
+>
+Répartition semaine par semaine
+</div>
+
+<div id="monthWeeks"></div>
+
+</div>
+
+
+<!-- HISTORIQUE -->
+
+<div class="card">
+
+<h2>🗂️ Historique</h2>
+
+<div id="historyList"></div>
+
+</div>
+
+
+<!-- TARIFS -->
+
+<div class="card">
+
+<h2>⚙️ Tarifs actuels</h2>
+
+<div class="section-description">
+Les nouvelles productions utilisent ces tarifs.
+Les journées terminées conservent leur gain enregistré.
+</div>
+
+<label>⚪ Blanche — €/kg</label>
+
+<input
+ id="rateBlanche"
+ type="number"
+ min="0"
+ step="0.01"
 >
 
-  <div class="modal-content">
+<label>🪸 Corail — €/kg</label>
 
-    <h2>✏️ Modifier la production</h2>
+<input
+ id="rateCorail"
+ type="number"
+ min="0"
+ step="0.01"
+>
 
-    <label for="editType">
-      Type
-    </label>
+<button onclick="saveRates()">
+💾 Enregistrer les tarifs
+</button>
 
-    <select id="editType">
+</div>
 
-      <option value="blanche">
-        ⚪ Blanche
-      </option>
+<div class="footer">
+Coquille — Papa
+</div>
 
-      <option value="corail">
-        🪸 Corail
-      </option>
+</div>
 
-    </select>
 
-    <label for="editWeight">
-      Poids (kg)
-    </label>
+<!-- MODIFICATION -->
 
-    <input
-      type="number"
-      id="editWeight"
-      min="0"
-      step="0.01"
-    >
+<div class="modal" id="editModal">
 
-    <div class="modal-buttons">
+<div class="modal-content">
 
-      <button
-        class="secondary"
-        onclick="closeEdit()"
-      >
-        Annuler
-      </button>
+<h2>✏️ Modifier la production</h2>
 
-      <button onclick="saveEdit()">
-        Enregistrer
-      </button>
+<label>Type</label>
 
-    </div>
+<select id="editType">
+<option value="blanche">⚪ Blanche</option>
+<option value="corail">🪸 Corail</option>
+</select>
 
-  </div>
+<label>Poids (kg)</label>
 
+<input
+ id="editWeight"
+ type="number"
+ min="0"
+ step="0.01"
+>
+
+<div class="modal-buttons">
+
+<button
+ class="secondary"
+ onclick="closeEdit()"
+>
+Annuler
+</button>
+
+<button onclick="saveEdit()">
+Enregistrer
+</button>
+
+</div>
+
+</div>
 </div>
 
 
 <script>
 
-const DEFAULT_RATE_BLANCHE = 1.66;
-const DEFAULT_RATE_CORAIL = 1.56;
-
-
-/* TARIFS */
+const DEFAULT_BLANCHE = 1.66;
+const DEFAULT_CORAIL = 1.56;
 
 let rateBlanche =
-  parseFloat(
-    localStorage.getItem(
-      "coquillePapaRateBlanche"
-    )
-  );
+parseFloat(
+localStorage.getItem("coquillePapaRateBlanche")
+);
 
 let rateCorail =
-  parseFloat(
-    localStorage.getItem(
-      "coquillePapaRateCorail"
-    )
-  );
+parseFloat(
+localStorage.getItem("coquillePapaRateCorail")
+);
 
-
-/*
-  Compatibilité anciennes versions
-*/
-
-if (isNaN(rateBlanche)) {
-
-  rateBlanche =
-    parseFloat(
-      localStorage.getItem(
-        "coquillePapaRateNoix"
-      )
-    ) || DEFAULT_RATE_BLANCHE;
-
+if(isNaN(rateBlanche)){
+rateBlanche =
+parseFloat(
+localStorage.getItem("coquillePapaRateNoix")
+) || DEFAULT_BLANCHE;
 }
 
-if (isNaN(rateCorail)) {
-
-  rateCorail =
-    parseFloat(
-      localStorage.getItem(
-        "coquillePapaRateCorail"
-      )
-    ) || DEFAULT_RATE_CORAIL;
-
+if(isNaN(rateCorail)){
+rateCorail =
+parseFloat(
+localStorage.getItem("coquillePapaRateCorail")
+) || DEFAULT_CORAIL;
 }
-
-
-/* DONNÉES */
 
 let entries =
-  JSON.parse(
-    localStorage.getItem(
-      "coquillePapaEntries"
-    ) || "[]"
-  );
+JSON.parse(
+localStorage.getItem("coquillePapaEntries") || "[]"
+);
 
 let history =
-  JSON.parse(
-    localStorage.getItem(
-      "coquillePapaHistory"
-    ) || "[]"
-  );
+JSON.parse(
+localStorage.getItem("coquillePapaHistory") || "[]"
+);
+
+let editingId=null;
 
 
-let editingId = null;
+/* OUTILS */
 
-
-/* INITIALISATION */
-
-document.getElementById(
-  "rateBlanche"
-).value = rateBlanche;
-
-document.getElementById(
-  "rateCorail"
-).value = rateCorail;
-
-
-/* SAUVEGARDE */
-
-function saveData() {
-
-  localStorage.setItem(
-    "coquillePapaEntries",
-    JSON.stringify(entries)
-  );
-
-  localStorage.setItem(
-    "coquillePapaHistory",
-    JSON.stringify(history)
-  );
-
+function euro(n){
+return n.toFixed(2).replace(".",",")+" €";
 }
 
-
-/* FORMAT */
-
-function formatEuro(value) {
-
-  return (
-    value
-      .toFixed(2)
-      .replace(".", ",")
-    + " €"
-  );
-
+function kg(n){
+return n.toFixed(2).replace(".",",")+" kg";
 }
 
-
-function formatKg(value) {
-
-  return (
-    value
-      .toFixed(2)
-      .replace(".", ",")
-    + " kg"
-  );
-
+function typeNormal(type){
+return type==="noix" ? "blanche" : type;
 }
 
-
-/* TYPE */
-
-function normalizeType(type) {
-
-  if (type === "noix") {
-    return "blanche";
-  }
-
-  return type;
-
+function label(type){
+return typeNormal(type)==="blanche"
+?"⚪ Blanche"
+:"🪸 Corail";
 }
 
-
-function getTypeLabel(type) {
-
-  type = normalizeType(type);
-
-  if (type === "blanche") {
-    return "⚪ Blanche";
-  }
-
-  return "🪸 Corail";
-
+function tarif(type){
+return typeNormal(type)==="blanche"
+?rateBlanche
+:rateCorail;
 }
 
-
-/* TARIF */
-
-function getRate(type) {
-
-  type =
-    normalizeType(type);
-
-  if (type === "blanche") {
-    return rateBlanche;
-  }
-
-  return rateCorail;
-
+function gain(entry){
+return entry.gain != null
+? entry.gain
+: entry.weight * tarif(entry.type);
 }
 
+function save(){
+localStorage.setItem(
+"coquillePapaEntries",
+JSON.stringify(entries)
+);
 
-/* CALCUL */
-
-function calculateEntry(entry) {
-
-  return (
-    entry.weight *
-    getRate(entry.type)
-  );
-
+localStorage.setItem(
+"coquillePapaHistory",
+JSON.stringify(history)
+);
 }
 
 
 /* AJOUT */
 
-function addEntry() {
+function addEntry(){
 
-  const type =
-    document.getElementById(
-      "type"
-    ).value;
+const type=
+document.getElementById("type").value;
 
-  const weight =
-    parseFloat(
-      document.getElementById(
-        "weight"
-      ).value
-    );
+const weight=
+parseFloat(
+document.getElementById("weight").value
+);
 
-  if (
-    !weight ||
-    weight <= 0
-  ) {
+if(!weight || weight<=0){
+alert("Entre un poids valide.");
+return;
+}
 
-    alert(
-      "Entre un poids valide."
-    );
+entries.push({
+id:Date.now(),
+type:type,
+weight:weight,
+gain:weight*tarif(type)
+});
 
-    return;
+document.getElementById("weight").value="";
 
-  }
-
-  entries.push({
-
-    id: Date.now(),
-
-    type: type,
-
-    weight: weight
-
-  });
-
-  document.getElementById(
-    "weight"
-  ).value = "";
-
-  saveData();
-
-  render();
-
+save();
+render();
 }
 
 
-/* SUPPRESSION PRODUCTION */
+/* SUPPRIMER */
 
-function deleteEntry(id) {
+function deleteEntry(id){
 
-  if (
-    !confirm(
-      "Supprimer cette production ?"
-    )
-  ) {
+if(!confirm("Supprimer cette production ?"))
+return;
 
-    return;
+entries=entries.filter(e=>e.id!==id);
 
-  }
-
-  entries =
-    entries.filter(
-      entry =>
-        entry.id !== id
-    );
-
-  saveData();
-
-  render();
-
+save();
+render();
 }
 
 
-/* MODIFICATION */
+/* MODIFIER */
 
-function openEdit(id) {
+function openEdit(id){
 
-  const entry =
-    entries.find(
-      entry =>
-        entry.id === id
-    );
+const e=entries.find(x=>x.id===id);
 
-  if (!entry) {
-    return;
-  }
+if(!e)return;
 
-  editingId = id;
+editingId=id;
 
-  document.getElementById(
-    "editType"
-  ).value =
-    normalizeType(
-      entry.type
-    );
+document.getElementById("editType").value=
+typeNormal(e.type);
 
-  document.getElementById(
-    "editWeight"
-  ).value =
-    entry.weight;
+document.getElementById("editWeight").value=
+e.weight;
 
-  document.getElementById(
-    "editModal"
-  ).style.display =
-    "block";
-
+document.getElementById("editModal").style.display=
+"block";
 }
 
+function closeEdit(){
 
-function closeEdit() {
+editingId=null;
 
-  editingId = null;
-
-  document.getElementById(
-    "editModal"
-  ).style.display =
-    "none";
-
+document.getElementById("editModal").style.display=
+"none";
 }
 
+function saveEdit(){
 
-function saveEdit() {
+const type=
+document.getElementById("editType").value;
 
-  const type =
-    document.getElementById(
-      "editType"
-    ).value;
+const weight=
+parseFloat(
+document.getElementById("editWeight").value
+);
 
-  const weight =
-    parseFloat(
-      document.getElementById(
-        "editWeight"
-      ).value
-    );
+if(!weight || weight<=0){
+alert("Entre un poids valide.");
+return;
+}
 
-  if (
-    !weight ||
-    weight <= 0
-  ) {
+const e=entries.find(x=>x.id===editingId);
 
-    alert(
-      "Entre un poids valide."
-    );
+if(!e)return;
 
-    return;
+e.type=type;
+e.weight=weight;
+e.gain=weight*tarif(type);
 
-  }
-
-  const entry =
-    entries.find(
-      entry =>
-        entry.id === editingId
-    );
-
-  if (!entry) {
-    return;
-  }
-
-  entry.type = type;
-
-  entry.weight = weight;
-
-  saveData();
-
-  closeEdit();
-
-  render();
-
+save();
+closeEdit();
+render();
 }
 
 
 /* TERMINER JOURNÉE */
 
-function finishDay() {
+function finishDay(){
 
-  if (
-    entries.length === 0
-  ) {
+if(entries.length===0){
+alert("Aucune production à enregistrer.");
+return;
+}
 
-    alert(
-      "Aucune production à enregistrer."
-    );
+if(!confirm(
+"Terminer cette journée et l'envoyer dans l'historique ?"
+))return;
 
-    return;
+const blanche=
+entries
+.filter(e=>typeNormal(e.type)==="blanche")
+.reduce((s,e)=>s+e.weight,0);
 
-  }
+const corail=
+entries
+.filter(e=>typeNormal(e.type)==="corail")
+.reduce((s,e)=>s+e.weight,0);
 
-  if (
-    !confirm(
-      "Terminer cette journée et l'envoyer dans l'historique ?"
-    )
-  ) {
-
-    return;
-
-  }
-
-  const today =
-    new Date();
-
-  const total =
-    entries.reduce(
-      (sum, entry) =>
-        sum +
-        calculateEntry(entry),
-      0
-    );
+const total=
+entries.reduce((s,e)=>s+gain(e),0);
 
 
-  const blancheKg =
-    entries
-      .filter(
-        entry =>
-          normalizeType(
-            entry.type
-          ) === "blanche"
-      )
-      .reduce(
-        (sum, entry) =>
-          sum + entry.weight,
-        0
-      );
+/*
+IMPORTANT :
+on enregistre le gain de chaque ligne
+au moment où la journée est terminée.
+*/
 
+const savedEntries=
+entries.map(e=>({
+id:e.id,
+type:typeNormal(e.type),
+weight:e.weight,
+gain:gain(e)
+}));
 
-  const corailKg =
-    entries
-      .filter(
-        entry =>
-          normalizeType(
-            entry.type
-          ) === "corail"
-      )
-      .reduce(
-        (sum, entry) =>
-          sum + entry.weight,
-        0
-      );
+history.unshift({
 
+id:Date.now(),
 
-  history.unshift({
+date:new Date().toISOString(),
 
-    id: Date.now(),
+total:total,
 
-    date:
-      today.toISOString(),
+blancheKg:blanche,
 
-    total: total,
+corailKg:corail,
 
-    blancheKg:
-      blancheKg,
+entries:savedEntries
 
-    corailKg:
-      corailKg,
+});
 
-    entries:
-      [...entries]
+entries=[];
 
-  });
-
-
-  entries = [];
-
-  saveData();
-
-  render();
-
+save();
+render();
 }
 
 
 /* SUPPRIMER JOURNÉE */
 
-function deleteHistory(id) {
+function deleteHistory(id){
 
-  if (
-    !confirm(
-      "Supprimer définitivement cette journée de l'historique ?"
-    )
-  ) {
+if(!confirm(
+"Supprimer définitivement cette journée ?"
+))return;
 
-    return;
+history=
+history.filter(d=>d.id!==id);
 
-  }
-
-  history =
-    history.filter(
-      day =>
-        day.id !== id
-    );
-
-  saveData();
-
-  render();
-
+save();
+render();
 }
 
 
-/* DATE */
+/* DATES */
 
-function getDayStart(date) {
+function startDay(date){
 
-  const d =
-    new Date(date);
+const d=new Date(date);
+d.setHours(0,0,0,0);
+return d;
+}
 
-  d.setHours(
-    0,
-    0,
-    0,
-    0
-  );
+function sameWeek(a,b){
 
-  return d;
+const d=startDay(b);
+const day=d.getDay()||7;
 
+const monday=new Date(d);
+monday.setDate(
+d.getDate()-day+1
+);
+
+const next=new Date(monday);
+next.setDate(
+monday.getDate()+7
+);
+
+const x=startDay(a);
+
+return x>=monday && x<next;
+}
+
+function sameMonth(a,year,month){
+
+const d=new Date(a);
+
+return
+d.getFullYear()===year &&
+d.getMonth()===month;
+}
+
+
+/* TOUTES LES JOURNÉES */
+
+function allDays(){
+
+const result=[...history];
+
+if(entries.length){
+
+const blanche=
+entries
+.filter(e=>typeNormal(e.type)==="blanche")
+.reduce((s,e)=>s+e.weight,0);
+
+const corail=
+entries
+.filter(e=>typeNormal(e.type)==="corail")
+.reduce((s,e)=>s+e.weight,0);
+
+result.unshift({
+
+id:"current",
+
+date:new Date().toISOString(),
+
+total:entries.reduce(
+(s,e)=>s+gain(e),0
+),
+
+blancheKg:blanche,
+
+corailKg:corail,
+
+entries:entries,
+
+current:true
+
+});
+}
+
+return result;
 }
 
 
 /* SEMAINE */
 
-function isSameWeek(
-  date1,
-  date2
-) {
+function renderWeek(){
 
-  const d1 =
-    getDayStart(date1);
+const now=new Date();
+const days=allDays();
 
-  const d2 =
-    getDayStart(date2);
+let total=0;
+let blanche=0;
+let corail=0;
+let daysWorked=0;
 
-  const day =
-    d2.getDay() || 7;
+days.forEach(d=>{
 
-  const monday =
-    new Date(d2);
+if(sameWeek(d.date,now)){
 
-  monday.setDate(
-    d2.getDate()
-    - day
-    + 1
-  );
+total+=d.total||0;
+blanche+=d.blancheKg||0;
+corail+=d.corailKg||0;
+daysWorked++;
 
-  const nextMonday =
-    new Date(monday);
+}
+});
 
-  nextMonday.setDate(
-    monday.getDate()
-    + 7
-  );
+const totalKg=blanche+corail;
 
-  return (
-    d1 >= monday &&
-    d1 < nextMonday
-  );
+document.getElementById("weekTotal").textContent=
+euro(total);
 
+document.getElementById("weekKg").textContent=
+kg(totalKg);
+
+document.getElementById("weekDays").textContent=
+daysWorked;
+
+document.getElementById("weekBlancheKg").textContent=
+kg(blanche);
+
+document.getElementById("weekBlancheMoney").textContent=
+euro(
+days
+.filter(d=>sameWeek(d.date,now))
+.reduce((s,d)=>{
+
+if(d.entries)
+return s+d.entries
+.filter(e=>typeNormal(e.type)==="blanche")
+.reduce((a,e)=>a+(e.gain||0),0);
+
+return s;
+
+},0)
+);
+
+document.getElementById("weekCorailKg").textContent=
+kg(corail);
+
+document.getElementById("weekCorailMoney").textContent=
+euro(
+days
+.filter(d=>sameWeek(d.date,now))
+.reduce((s,d)=>{
+
+if(d.entries)
+return s+d.entries
+.filter(e=>typeNormal(e.type)==="corail")
+.reduce((a,e)=>a+(e.gain||0),0);
+
+return s;
+
+},0)
+);
+
+document.getElementById("weekAverage").textContent=
+euro(daysWorked?total/daysWorked:0);
+
+const day=now.getDay()||7;
+
+const monday=new Date(now);
+monday.setDate(now.getDate()-day+1);
+
+const sunday=new Date(monday);
+sunday.setDate(monday.getDate()+6);
+
+document.getElementById("weekPeriod").textContent=
+"Du "+
+monday.toLocaleDateString("fr-FR",{
+day:"numeric",
+month:"long"
+})+
+" au "+
+sunday.toLocaleDateString("fr-FR",{
+day:"numeric",
+month:"long"
+});
+
+}
+
+
+/* MOIS SELECTEUR */
+
+function buildMonthSelect(){
+
+const select=
+document.getElementById("monthSelect");
+
+const months=[];
+
+const now=new Date();
+
+for(let i=0;i<12;i++){
+
+const d=new Date(
+now.getFullYear(),
+now.getMonth()-i,
+1
+);
+
+months.push(d);
+
+}
+
+select.innerHTML="";
+
+months.forEach(d=>{
+
+const option=
+document.createElement("option");
+
+option.value=
+d.getFullYear()+"-"+d.getMonth();
+
+option.textContent=
+d.toLocaleDateString(
+"fr-FR",
+{
+month:"long",
+year:"numeric"
+}
+);
+
+select.appendChild(option);
+
+});
+
+select.value=
+now.getFullYear()+"-"+now.getMonth();
 }
 
 
 /* MOIS */
 
-function isSameMonth(
-  date1,
-  date2
-) {
+function renderMonth(){
 
-  const d1 =
-    new Date(date1);
+const value=
+document.getElementById("monthSelect").value;
 
-  const d2 =
-    new Date(date2);
+const parts=value.split("-");
 
-  return (
+const year=parseInt(parts[0]);
+const month=parseInt(parts[1]);
 
-    d1.getFullYear() ===
-      d2.getFullYear()
+const days=allDays();
 
-    &&
+let total=0;
+let blancheKg=0;
+let corailKg=0;
+let daysWorked=0;
 
-    d1.getMonth() ===
-      d2.getMonth()
+const selected=
+days.filter(d=>{
 
-  );
+const date=new Date(d.date);
 
+return
+date.getFullYear()===year &&
+date.getMonth()===month;
+
+});
+
+selected.forEach(d=>{
+
+total+=d.total||0;
+
+blancheKg+=d.blancheKg||0;
+
+corailKg+=d.corailKg||0;
+
+daysWorked++;
+
+});
+
+const blancheMoney=
+selected.reduce((s,d)=>{
+
+if(!d.entries)return s;
+
+return s+
+d.entries
+.filter(e=>typeNormal(e.type)==="blanche")
+.reduce((a,e)=>a+(e.gain||0),0);
+
+},0);
+
+const corailMoney=
+selected.reduce((s,d)=>{
+
+if(!d.entries)return s;
+
+return s+
+d.entries
+.filter(e=>typeNormal(e.type)==="corail")
+.reduce((a,e)=>a+(e.gain||0),0);
+
+},0);
+
+document.getElementById("monthTotal").textContent=
+euro(total);
+
+document.getElementById("monthKg").textContent=
+kg(blancheKg+corailKg);
+
+document.getElementById("monthDays").textContent=
+daysWorked;
+
+document.getElementById("monthBlancheKg").textContent=
+kg(blancheKg);
+
+document.getElementById("monthBlancheMoney").textContent=
+euro(blancheMoney);
+
+document.getElementById("monthCorailKg").textContent=
+kg(corailKg);
+
+document.getElementById("monthCorailMoney").textContent=
+euro(corailMoney);
+
+document.getElementById("monthAverage").textContent=
+euro(daysWorked?total/daysWorked:0);
+
+renderMonthWeeks(
+year,
+month,
+selected
+);
 }
 
 
-/* JOURS DISPONIBLES */
+/* SEMAINES DU MOIS */
 
-function getAllDays() {
+function renderMonthWeeks(year,month,days){
 
-  const days =
-    [...history];
+const container=
+document.getElementById("monthWeeks");
 
+container.innerHTML="";
 
-  if (
-    entries.length > 0
-  ) {
+if(days.length===0){
 
-    const total =
-      entries.reduce(
-        (sum, entry) =>
-          sum +
-          calculateEntry(entry),
-        0
-      );
+container.innerHTML=
+'<div class="empty">Aucune journée enregistrée pour ce mois.</div>';
 
+return;
+}
 
-    const blancheKg =
-      entries
-        .filter(
-          entry =>
-            normalizeType(
-              entry.type
-            ) === "blanche"
-        )
-        .reduce(
-          (sum, entry) =>
-            sum + entry.weight,
-          0
-        );
+const weeks={};
 
+days.forEach(d=>{
 
-    const corailKg =
-      entries
-        .filter(
-          entry =>
-            normalizeType(
-              entry.type
-            ) === "corail"
-        )
-        .reduce(
-          (sum, entry) =>
-            sum + entry.weight,
-          0
-        );
+const date=new Date(d.date);
 
+const day=date.getDate();
 
-    days.unshift({
+const monday=new Date(date);
 
-      id:
-        "current",
+const weekday=date.getDay()||7;
 
-      date:
-        new Date().toISOString(),
+monday.setDate(day-weekday+1);
 
-      total:
-        total,
+const key=
+monday.getFullYear()+"-"+
+monday.getMonth()+"-"+
+monday.getDate();
 
-      blancheKg:
-        blancheKg,
+if(!weeks[key]){
 
-      corailKg:
-        corailKg,
-
-      entries:
-        entries,
-
-      current:
-        true
-
-    });
-
-  }
-
-  return days;
+weeks[key]={
+start:monday,
+total:0,
+kg:0,
+days:0
+};
 
 }
 
+weeks[key].total+=d.total||0;
 
-/* BILAN SEMAINE */
+weeks[key].kg+=
+(d.blancheKg||0)+
+(d.corailKg||0);
 
-function renderWeek() {
+weeks[key].days++;
 
-  const now =
-    new Date();
+});
 
-  const days =
-    getAllDays();
+Object.values(weeks)
+.sort((a,b)=>a.start-b.start)
+.forEach(w=>{
 
+const end=new Date(w.start);
+end.setDate(w.start.getDate()+6);
 
-  let weekTotal = 0;
+const div=document.createElement("div");
 
-  let weekBlancheKg = 0;
+div.className="week-row";
 
-  let weekCorailKg = 0;
+div.innerHTML=`
 
-  let weekDays = 0;
+<div class="week-row-title">
+📅 Du
+${w.start.toLocaleDateString("fr-FR",{
+day:"numeric",
+month:"short"
+})}
+au
+${end.toLocaleDateString("fr-FR",{
+day:"numeric",
+month:"short"
+})}
+</div>
 
+<div>
+💰 ${euro(w.total)}
+</div>
 
-  days.forEach(
-    day => {
+<div>
+⚖️ ${kg(w.kg)}
+</div>
 
-      const date =
-        new Date(
-          day.date
-        );
+<div class="section-description">
+📅 ${w.days} jour${w.days>1?"s":""} travaillé${w.days>1?"s":""}
+</div>
+`;
 
+container.appendChild(div);
 
-      if (
-        isSameWeek(
-          date,
-          now
-        )
-      ) {
-
-        const blanche =
-          day.blancheKg ??
-          day.noixKg ??
-          0;
-
-        const corail =
-          day.corailKg ??
-          0;
-
-
-        weekTotal +=
-          day.total || 0;
-
-        weekBlancheKg +=
-          blanche;
-
-        weekCorailKg +=
-          corail;
-
-        weekDays++;
-
-      }
-
-    }
-  );
-
-
-  const weekKg =
-    weekBlancheKg +
-    weekCorailKg;
-
-
-  const blancheMoney =
-    weekBlancheKg *
-    rateBlanche;
-
-
-  const corailMoney =
-    weekCorailKg *
-    rateCorail;
-
-
-  const average =
-    weekDays > 0
-      ? weekTotal / weekDays
-      : 0;
-
-
-  document.getElementById(
-    "weekTotalBig"
-  ).textContent =
-    formatEuro(
-      weekTotal
-    );
-
-
-  document.getElementById(
-    "weekKg"
-  ).textContent =
-    formatKg(
-      weekKg
-    );
-
-
-  document.getElementById(
-    "weekDays"
-  ).textContent =
-    weekDays;
-
-
-  document.getElementById(
-    "weekBlancheKg"
-  ).textContent =
-    formatKg(
-      weekBlancheKg
-    );
-
-
-  document.getElementById(
-    "weekBlancheMoney"
-  ).textContent =
-    formatEuro(
-      blancheMoney
-    );
-
-
-  document.getElementById(
-    "weekCorailKg"
-  ).textContent =
-    formatKg(
-      weekCorailKg
-    );
-
-
-  document.getElementById(
-    "weekCorailMoney"
-  ).textContent =
-    formatEuro(
-      corailMoney
-    );
-
-
-  document.getElementById(
-    "weekAverage"
-  ).textContent =
-    formatEuro(
-      average
-    );
-
-
-  /*
-    Affichage de la période
-  */
-
-  const day =
-    now.getDay() || 7;
-
-  const monday =
-    new Date(now);
-
-  monday.setDate(
-    now.getDate()
-    - day
-    + 1
-  );
-
-  const sunday =
-    new Date(monday);
-
-  sunday.setDate(
-    monday.getDate()
-    + 6
-  );
-
-
-  const mondayText =
-    monday.toLocaleDateString(
-      "fr-FR",
-      {
-        day: "numeric",
-        month: "long"
-      }
-    );
-
-
-  const sundayText =
-    sunday.toLocaleDateString(
-      "fr-FR",
-      {
-        day: "numeric",
-        month: "long"
-      }
-    );
-
-
-  document.getElementById(
-    "weekPeriod"
-  ).textContent =
-    "Du " +
-    mondayText +
-    " au " +
-    sundayText;
-
-}
-
-
-/* STATISTIQUES MOIS */
-
-function renderMonth() {
-
-  const now =
-    new Date();
-
-  const days =
-    getAllDays();
-
-
-  let monthTotal = 0;
-
-  let monthKg = 0;
-
-  let monthDays = 0;
-
-
-  days.forEach(
-    day => {
-
-      const date =
-        new Date(
-          day.date
-        );
-
-
-      if (
-        isSameMonth(
-          date,
-          now
-        )
-      ) {
-
-        const blanche =
-          day.blancheKg ??
-          day.noixKg ??
-          0;
-
-        const corail =
-          day.corailKg ??
-          0;
-
-
-        monthTotal +=
-          day.total || 0;
-
-        monthKg +=
-          blanche +
-          corail;
-
-        monthDays++;
-
-      }
-
-    }
-  );
-
-
-  const average =
-    monthDays > 0
-      ? monthTotal / monthDays
-      : 0;
-
-
-  document.getElementById(
-    "monthTotal"
-  ).textContent =
-    formatEuro(
-      monthTotal
-    );
-
-
-  document.getElementById(
-    "monthKg"
-  ).textContent =
-    formatKg(
-      monthKg
-    );
-
-
-  document.getElementById(
-    "monthDays"
-  ).textContent =
-    monthDays;
-
-
-  document.getElementById(
-    "monthAverage"
-  ).textContent =
-    formatEuro(
-      average
-    );
-
-}
-
-
-/* AFFICHAGE DU JOUR */
-
-function displayToday() {
-
-  const today =
-    new Date();
-
-  document.getElementById(
-    "todayDate"
-  ).textContent =
-    today.toLocaleDateString(
-      "fr-FR",
-      {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }
-    );
-
-}
-
-
-/* AFFICHAGE PRODUCTION */
-
-function renderEntries() {
-
-  const container =
-    document.getElementById(
-      "entriesList"
-    );
-
-
-  if (
-    entries.length === 0
-  ) {
-
-    container.innerHTML =
-      '<div class="empty">Aucune production aujourd’hui.</div>';
-
-    return;
-
-  }
-
-
-  container.innerHTML = "";
-
-
-  entries.forEach(
-    entry => {
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-      div.className =
-        "entry";
-
-
-      div.innerHTML = `
-
-        <div class="entry-top">
-
-          <div>
-
-            <div class="entry-title">
-
-              ${getTypeLabel(
-                entry.type
-              )}
-
-            </div>
-
-            <div class="entry-details">
-
-              ${formatKg(
-                entry.weight
-              )}
-
-              —
-
-              ${formatEuro(
-                calculateEntry(
-                  entry
-                )
-              )}
-
-            </div>
-
-          </div>
-
-
-          <div class="entry-actions">
-
-            <button
-              class="edit-btn"
-              onclick="openEdit(${entry.id})"
-            >
-              ✏️ Modifier
-            </button>
-
-            <button
-              class="delete-btn"
-              onclick="deleteEntry(${entry.id})"
-            >
-              🗑️
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-
-      container.appendChild(
-        div
-      );
-
-    }
-  );
-
+});
 }
 
 
 /* HISTORIQUE */
 
-function renderHistory() {
+function renderHistory(){
 
-  const container =
-    document.getElementById(
-      "historyList"
-    );
+const container=
+document.getElementById("historyList");
 
+if(!history.length){
 
-  if (
-    history.length === 0
-  ) {
+container.innerHTML=
+'<div class="empty">Aucune journée terminée.</div>';
 
-    container.innerHTML =
-      '<div class="empty">Aucune journée terminée.</div>';
+return;
+}
 
-    return;
+container.innerHTML="";
 
-  }
+history.forEach(day=>{
 
+const date=
+new Date(day.date)
+.toLocaleDateString(
+"fr-FR",
+{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}
+);
 
-  container.innerHTML = "";
+const blanche=day.blancheKg||0;
+const corail=day.corailKg||0;
 
+const div=
+document.createElement("div");
 
-  history.forEach(
-    day => {
+div.className="history-day";
 
-      const date =
-        new Date(
-          day.date
-        ).toLocaleDateString(
-          "fr-FR",
-          {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-          }
-        );
+div.innerHTML=`
 
+<div
+ class="history-header"
+ onclick="toggleHistory(${day.id})"
+>
 
-      const blanche =
-        day.blancheKg ??
-        day.noixKg ??
-        0;
+<strong>📅 ${date}</strong>
 
-      const corail =
-        day.corailKg ??
-        0;
+<div>
+💰 ${euro(day.total)}
+—
+⚖️ ${kg(blanche+corail)}
+</div>
 
+</div>
 
-      const wrapper =
-        document.createElement(
-          "div"
-        );
+<div
+ class="history-details"
+ id="history-${day.id}"
+>
 
-      wrapper.className =
-        "history-day";
+<div class="stats-grid">
 
+<div class="stat">
+<div class="stat-title">⚪ Blanche</div>
+<div class="stat-value">${kg(blanche)}</div>
+</div>
 
-      wrapper.innerHTML = `
+<div class="stat">
+<div class="stat-title">🪸 Corail</div>
+<div class="stat-value">${kg(corail)}</div>
+</div>
 
-        <div
-          class="history-header"
-          onclick="toggleHistory(${day.id})"
-        >
+</div>
 
-          <strong>
-            📅 ${date}
-          </strong>
+<br>
 
-          <div>
+<strong>Productions :</strong>
 
-            💰
-            ${formatEuro(
-              day.total
-            )}
+<br><br>
 
-            —
+${(day.entries||[]).map(e=>`
 
-            ⚖️
-            ${formatKg(
-              blanche + corail
-            )}
+<div class="entry">
 
-          </div>
+<div class="entry-title">
+${label(e.type)}
+</div>
 
-        </div>
+<div class="entry-details">
+${kg(e.weight)}
+—
+${euro(e.gain!=null?e.gain:e.weight*tarif(e.type))}
+</div>
 
+</div>
 
-        <div
-          class="history-details"
-          id="history-${day.id}"
-        >
+`).join("")}
 
-          <div class="stats-grid">
+<div class="history-actions">
 
-            <div class="stat">
+<button
+ class="danger"
+ onclick="deleteHistory(${day.id})"
+>
+🗑️ Supprimer cette journée
+</button>
 
-              <div class="stat-title">
-                ⚪ Blanche
-              </div>
+</div>
 
-              <div class="stat-value">
-                ${formatKg(
-                  blanche
-                )}
-              </div>
+</div>
+`;
 
-            </div>
+container.appendChild(div);
 
-
-            <div class="stat">
-
-              <div class="stat-title">
-                🪸 Corail
-              </div>
-
-              <div class="stat-value">
-                ${formatKg(
-                  corail
-                )}
-              </div>
-
-            </div>
-
-          </div>
-
-          <br>
-
-          <strong>
-            Productions :
-          </strong>
-
-          <br><br>
-
-          ${day.entries.map(
-            entry => {
-
-              const label =
-                getTypeLabel(
-                  entry.type
-                );
-
-
-              return `
-
-                <div class="entry">
-
-                  <div class="entry-title">
-                    ${label}
-                  </div>
-
-                  <div class="entry-details">
-
-                    ${formatKg(
-                      entry.weight
-                    )}
-
-                    —
-
-                    ${formatEuro(
-                      calculateEntry(
-                        entry
-                      )
-                    )}
-
-                  </div>
-
-                </div>
-
-              `;
-
-            }
-          ).join("")}
-
-
-          <div class="history-actions">
-
-            <button
-              class="danger"
-              onclick="deleteHistory(${day.id})"
-            >
-              🗑️ Supprimer cette journée
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-
-      container.appendChild(
-        wrapper
-      );
-
-    }
-  );
-
+});
 }
 
 
-/* OUVERTURE HISTORIQUE */
+/* HISTORIQUE OUVERTURE */
 
-function toggleHistory(id) {
+function toggleHistory(id){
 
-  const element =
-    document.getElementById(
-      "history-" + id
-    );
+const e=
+document.getElementById(
+"history-"+id
+);
 
-
-  if (element) {
-
-    element.classList.toggle(
-      "open"
-    );
-
-  }
-
+if(e)e.classList.toggle("open");
 }
 
 
 /* TARIFS */
 
-function saveRates() {
+function saveRates(){
 
-  const newBlanche =
-    parseFloat(
-      document.getElementById(
-        "rateBlanche"
-      ).value
-    );
+const blanche=
+parseFloat(
+document.getElementById("rateBlanche").value
+);
 
+const corail=
+parseFloat(
+document.getElementById("rateCorail").value
+);
 
-  const newCorail =
-    parseFloat(
-      document.getElementById(
-        "rateCorail"
-      ).value
-    );
+if(
+isNaN(blanche)||
+isNaN(corail)||
+blanche<0||
+corail<0
+){
 
+alert("Entre des tarifs valides.");
+return;
+}
 
-  if (
-    isNaN(newBlanche) ||
-    isNaN(newCorail) ||
-    newBlanche < 0 ||
-    newCorail < 0
-  ) {
+rateBlanche=blanche;
+rateCorail=corail;
 
-    alert(
-      "Entre des tarifs valides."
-    );
+localStorage.setItem(
+"coquillePapaRateBlanche",
+rateBlanche
+);
 
-    return;
+localStorage.setItem(
+"coquillePapaRateCorail",
+rateCorail
+);
 
-  }
+localStorage.setItem(
+"coquillePapaRateNoix",
+rateBlanche
+);
 
+render();
 
-  rateBlanche =
-    newBlanche;
+alert("Tarifs enregistrés.");
 
-  rateCorail =
-    newCorail;
-
-
-  localStorage.setItem(
-    "coquillePapaRateBlanche",
-    rateBlanche
-  );
-
-
-  localStorage.setItem(
-    "coquillePapaRateCorail",
-    rateCorail
-  );
+}
 
 
-  /*
-    Ancienne clé conservée
-    pour compatibilité
-  */
+/* PRODUCTION */
 
-  localStorage.setItem(
-    "coquillePapaRateNoix",
-    rateBlanche
-  );
+function renderEntries(){
+
+const container=
+document.getElementById("entriesList");
+
+if(!entries.length){
+
+container.innerHTML=
+'<div class="empty">Aucune production aujourd’hui.</div>';
+
+return;
+}
+
+container.innerHTML="";
+
+entries.forEach(e=>{
+
+const div=document.createElement("div");
+
+div.className="entry";
+
+div.innerHTML=`
+
+<div class="entry-top">
+
+<div>
+
+<div class="entry-title">
+${label(e.type)}
+</div>
+
+<div class="entry-details">
+${kg(e.weight)}
+—
+${euro(gain(e))}
+</div>
+
+</div>
+
+<div class="entry-actions">
+
+<button
+ class="edit-btn"
+ onclick="openEdit(${e.id})"
+>
+✏️ Modifier
+</button>
+
+<button
+ class="delete-btn"
+ onclick="deleteEntry(${e.id})"
+>
+🗑️
+</button>
+
+</div>
+
+</div>
+`;
+
+container.appendChild(div);
+
+});
+}
 
 
-  render();
+/* JOUR */
 
+function renderDay(){
 
-  alert(
-    "Tarifs enregistrés."
-  );
+let total=0;
+let blanche=0;
+let corail=0;
+
+entries.forEach(e=>{
+
+total+=gain(e);
+
+if(typeNormal(e.type)==="blanche")
+blanche+=e.weight;
+else
+corail+=e.weight;
+
+});
+
+document.getElementById("dailyTotal").textContent=
+euro(total);
+
+document.getElementById("dailyKg").textContent=
+kg(blanche+corail);
+
+document.getElementById("dailyBlanche").textContent=
+kg(blanche);
+
+document.getElementById("dailyCorail").textContent=
+kg(corail);
 
 }
 
 
 /* RENDU GLOBAL */
 
-function render() {
+function render(){
 
-  let dailyTotal = 0;
-
-  let dailyBlanche = 0;
-
-  let dailyCorail = 0;
-
-
-  entries.forEach(
-    entry => {
-
-      dailyTotal +=
-        calculateEntry(
-          entry
-        );
-
-
-      if (
-        normalizeType(
-          entry.type
-        ) === "blanche"
-      ) {
-
-        dailyBlanche +=
-          entry.weight;
-
-      } else {
-
-        dailyCorail +=
-          entry.weight;
-
-      }
-
-    }
-  );
-
-
-  const dailyKg =
-    dailyBlanche +
-    dailyCorail;
-
-
-  document.getElementById(
-    "dailyTotal"
-  ).textContent =
-    formatEuro(
-      dailyTotal
-    );
-
-
-  document.getElementById(
-    "dailyKg"
-  ).textContent =
-    formatKg(
-      dailyKg
-    );
-
-
-  document.getElementById(
-    "dailyBlanche"
-  ).textContent =
-    formatKg(
-      dailyBlanche
-    );
-
-
-  document.getElementById(
-    "dailyCorail"
-  ).textContent =
-    formatKg(
-      dailyCorail
-    );
-
-
-  renderEntries();
-
-  renderWeek();
-
-  renderMonth();
-
-  renderHistory();
+renderDay();
+renderEntries();
+renderWeek();
+renderMonth();
+renderHistory();
 
 }
 
 
-/* LANCEMENT */
+/* DATE */
 
-displayToday();
+document.getElementById("todayDate").textContent=
+new Date().toLocaleDateString(
+"fr-FR",
+{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}
+);
+
+document.getElementById("rateBlanche").value=
+rateBlanche;
+
+document.getElementById("rateCorail").value=
+rateCorail;
+
+buildMonthSelect();
 
 render();
 
